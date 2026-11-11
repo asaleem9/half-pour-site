@@ -1,0 +1,53 @@
+---
+/**
+ * A transparent celebration overlay: confetti and Pourie on no ground at all, played once over the page.
+ * The caller positions it (usually `absolute inset-0` over a `relative` parent) and fires it with
+ * `playBurst(name)` from behaviours/alpha-burst.ts. It stays hidden until then and hides again after.
+ */
+import media from "@/lib/generated/media.json";
+
+interface Props {
+  /** A burst in src/lib/generated/media.json, for example "burst-badge". */
+  name: string;
+  class?: string;
+}
+
+interface Burst {
+  kind: string;
+  width: number;
+  height: number;
+  webm: string;
+  hevc: string;
+}
+
+const { name, class: className = "" } = Astro.props;
+const burst = (media as Record<string, Partial<Burst>>)[name];
+if (!burst || burst.kind !== "burst") throw new Error(`AlphaBurst: "${name}" is not a burst in media.json; run npm run media`);
+---
+
+<video
+  class:list={["alpha-burst", className]}
+  data-alpha-burst={name}
+  data-webm={burst.webm}
+  data-hevc={burst.hevc}
+  width={burst.width}
+  height={burst.height}
+  muted
+  playsinline
+  preload="none"
+  disablepictureinpicture
+  aria-hidden="true"
+  tabindex="-1"
+  hidden></video>
+
+<style is:global>
+  .alpha-burst {
+    object-fit: contain;
+    pointer-events: none;
+    max-width: none;
+    background: transparent;
+  }
+  .alpha-burst[hidden] {
+    display: none;
+  }
+</style>

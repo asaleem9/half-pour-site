@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1080" />
+    <title>Half Pour: kudos round the crew</title>
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Fredoka"; src: url("assets/fonts/Fredoka.woff2") format("woff2"); font-weight: 300 700; font-display: block; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1080px; overflow: hidden; background: #FFB02E; }
+      #root { position: relative; width: 1080px; height: 1080px; overflow: hidden; background: #FFB02E; color: #1F1A3D;
+        font-family: "Fredoka", sans-serif; font-weight: 600; line-height: 1; }
+      .layer { position: absolute; inset: 0; }
+      .bit { position: absolute; border-radius: 10px; border: 4px solid #1F1A3D; }
+      .spark { position: absolute; display: block; }
+
+      /* A crew-mate: Pourie's bust on their colour, as in the app. The head pokes out of the top of the disc. */
+      .av { position: absolute; width: 340px; height: 340px; }
+      .bob, .hop { position: absolute; inset: 0; }
+      .hop { transform-origin: 50% 100%; }
+      .disc { position: absolute; inset: 0; border-radius: 50%; border: 5px solid #1F1A3D; box-shadow: 0 12px 0 #C97700; }
+      .pulse { position: absolute; inset: -6px; border-radius: 50%; border: 10px solid #FF6FA3; }
+      .cut { position: absolute; left: 5px; bottom: 5px; width: 330px; height: 480px; border-radius: 0 0 165px 165px; overflow: hidden; }
+      .cut img { position: absolute; left: 20px; bottom: -12px; width: 290px; height: auto; display: block; }
+
+      #pill { position: absolute; left: 392px; top: 514px; width: 296px; height: 116px; border-radius: 58px; background: #FFF6E5;
+        border: 5px solid #1F1A3D; box-shadow: 0 10px 0 #C97700; font-size: 62px; letter-spacing: 0.01em; white-space: nowrap;
+        display: flex; align-items: center; justify-content: center; gap: 16px; transform-origin: 50% 50%; }
+      #pill svg { width: 52px; height: 48px; display: block; flex: none; }
+
+      .heart { position: absolute; left: -62px; top: -60px; width: 124px; height: 120px; display: block; overflow: visible; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="6" data-width="1080" data-height="1080" data-layout-allow-overlap>
+      <div id="decor" class="layer">
+        <div class="bit b-a" style="left:96px;top:150px;width:60px;height:32px;background:#FFF6E5"></div>
+        <div class="bit b-b" style="left:190px;top:360px;width:34px;height:34px;background:#FF6FA3"></div>
+        <div class="bit b-b" style="left:900px;top:130px;width:36px;height:62px;background:#1FC98A"></div>
+        <div class="bit b-a" style="left:850px;top:380px;width:34px;height:34px;background:#FFF6E5"></div>
+        <div class="bit b-a" style="left:508px;top:960px;width:62px;height:32px;background:#FF6FA3"></div>
+        <svg class="spark s-a" style="left:300px;top:96px;width:44px;height:44px" viewBox="0 0 40 40"><path fill="#FFF6E5" d="M20 0c2 12 8 18 20 20-12 2-18 8-20 20-2-12-8-18-20-20 12-2 18-8 20-20z"/></svg>
+        <svg class="spark s-b" style="left:740px;top:230px;width:30px;height:30px" viewBox="0 0 40 40"><path fill="#FFF6E5" d="M20 0c2 12 8 18 20 20-12 2-18 8-20 20-2-12-8-18-20-20 12-2 18-8 20-20z"/></svg>
+        <svg class="spark s-b" style="left:120px;top:520px;width:34px;height:34px" viewBox="0 0 40 40"><path fill="#FFF6E5" d="M20 0c2 12 8 18 20 20-12 2-18 8-20 20-2-12-8-18-20-20 12-2 18-8 20-20z"/></svg>
+        <svg class="spark s-a" style="left:930px;top:520px;width:40px;height:40px" viewBox="0 0 40 40"><path fill="#FFF6E5" d="M20 0c2 12 8 18 20 20-12 2-18 8-20 20-2-12-8-18-20-20 12-2 18-8 20-20z"/></svg>
+      </div>
+
+      <div id="scene" class="layer">
+        <div class="av" id="av-a" style="left:370px;top:136px"><div class="bob"><div class="hop">
+          <div class="pulse"></div><div class="disc" style="background:#FFF6E5"></div>
+          <div class="cut"><img data-layout-allow-overflow src="assets/pourie-bust-partyhat-400.webp" alt="" /></div>
+        </div></div></div>
+        <div class="av" id="av-b" style="left:664px;top:632px"><div class="bob"><div class="hop">
+          <div class="pulse"></div><div class="disc" style="background:#3DB2FF"></div>
+          <div class="cut"><img data-layout-allow-overflow src="assets/pourie-bust-shades-400.webp" alt="" /></div>
+        </div></div></div>
+        <div class="av" id="av-c" style="left:76px;top:632px"><div class="bob"><div class="hop">
+          <div class="pulse"></div><div class="disc" style="background:#1FC98A"></div>
+          <div class="cut"><img data-layout-allow-overflow src="assets/pourie-bust-straw-400.webp" alt="" /></div>
+        </div></div></div>
+
+        <div id="pill"><svg viewBox="0 0 100 92"><path fill="#FF6FA3" stroke="#1F1A3D" stroke-width="9" stroke-linejoin="round" d="M50 84C50 84 9 59 9 31A21 21 0 0 1 50 22A21 21 0 0 1 91 31C91 59 50 84 50 84Z"/></svg><span>Kudos</span></div>
+
+        <svg class="heart" id="heart-1" viewBox="0 0 124 120" fill="none">
+          <path transform="translate(12 22)" fill="#D9447C" stroke="#1F1A3D" stroke-width="9" stroke-linejoin="round" d="M50 84C50 84 9 59 9 31A21 21 0 0 1 50 22A21 21 0 0 1 91 31C91 59 50 84 50 84Z"/>
+          <path transform="translate(12 10)" fill="#FF6FA3" stroke="#1F1A3D" stroke-width="9" stroke-linejoin="round" d="M50 84C50 84 9 59 9 31A21 21 0 0 1 50 22A21 21 0 0 1 91 31C91 59 50 84 50 84Z"/>
+        </svg>
+        <svg class="heart" id="heart-2" viewBox="0 0 124 120" fill="none">
+          <path transform="translate(12 22)" fill="#D9447C" stroke="#1F1A3D" stroke-width="9" stroke-linejoin="round" d="M50 84C50 84 9 59 9 31A21 21 0 0 1 50 22A21 21 0 0 1 91 31C91 59 50 84 50 84Z"/>
+          <path transform="translate(12 10)" fill="#FF6FA3" stroke="#1F1A3D" stroke-width="9" stroke-linejoin="round" d="M50 84C50 84 9 59 9 31A21 21 0 0 1 50 22A21 21 0 0 1 91 31C91 59 50 84 50 84Z"/>
+        </svg>
+        <svg class="heart" id="heart-3" viewBox="0 0 124 120" fill="none">
+          <path transform="translate(12 22)" fill="#D9447C" stroke="#1F1A3D" stroke-width="9" stroke-linejoin="round" d="M50 84C50 84 9 59 9 31A21 21 0 0 1 50 22A21 21 0 0 1 91 31C91 59 50 84 50 84Z"/>
+          <path transform="translate(12 10)" fill="#FF6FA3" stroke="#1F1A3D" stroke-width="9" stroke-linejoin="round" d="M50 84C50 84 9 59 9 31A21 21 0 0 1 50 22A21 21 0 0 1 91 31C91 59 50 84 50 84Z"/>
+        </svg>
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+
+        // Each heart leaves one crew-mate, arcs through a control point and lands on the next.
+        const hops = [
+          { heart: "#heart-1", from: "#av-a", to: "#av-b", p0: [598, 405], p1: [812, 396], p2: [834, 792], at: 0.15, ease: "back.out(1.4)" },
+          { heart: "#heart-2", from: "#av-b", to: "#av-c", p0: [704, 812], p1: [540, 612], p2: [246, 792], at: 2.05, ease: "power3.out" },
+          { heart: "#heart-3", from: "#av-c", to: "#av-a", p0: [304, 703], p1: [276, 396], p2: [540, 296], at: 3.95, ease: "power3.out" },
+        ];
+
+        gsap.set(".heart", { scale: 0, transformOrigin: "50% 50%" });
+        gsap.set(".pulse", { opacity: 0, scale: 0.92 });
+        hops.forEach(function (hop) { gsap.set(hop.heart, { x: hop.p0[0], y: hop.p0[1] }); });
+
+        // Always moving a little: the crew bobs out of step, the confetti rocks.
+        tl.to("#av-a .bob", { y: -8, duration: 1.5, ease: "sine.inOut", yoyo: true, repeat: 3 }, 0);
+        tl.to("#av-b .bob", { y: 8, duration: 1.5, ease: "sine.inOut", yoyo: true, repeat: 3 }, 0);
+        tl.to("#av-c .bob", { y: -7, duration: 1, ease: "sine.inOut", yoyo: true, repeat: 5 }, 0);
+        tl.to(".b-a", { rotation: 16, duration: 1.5, ease: "sine.inOut", yoyo: true, repeat: 3 }, 0);
+        tl.to(".b-b", { rotation: -18, duration: 1, ease: "sine.inOut", yoyo: true, repeat: 5 }, 0);
+        tl.to(".s-a", { scale: 0.55, transformOrigin: "50% 50%", duration: 0.75, ease: "sine.inOut", yoyo: true, repeat: 7 }, 0);
+        tl.to(".s-b", { scale: 0.6, transformOrigin: "50% 50%", duration: 1, ease: "sine.inOut", yoyo: true, repeat: 5 }, 0);
+
+        hops.forEach(function (hop) {
+          const s = hop.at;
+          const sender = hop.from + " .hop";
+          const receiver = hop.to + " .hop";
+          const flight = { p: 0 };
+          const place = function () {
+            const p = flight.p;
+            const q = 1 - p;
+            gsap.set(hop.heart, {
+              x: q * q * hop.p0[0] + 2 * q * p * hop.p1[0] + p * p * hop.p2[0],
+              y: q * q * hop.p0[1] + 2 * q * p * hop.p1[1] + p * p * hop.p2[1],
+            });
+          };
+
+          // The sender dips and the heart pops out.
+          tl.to(sender, { scaleY: 0.93, scaleX: 1.04, duration: 0.12, ease: "power2.out" }, s);
+          tl.to(sender, { scaleY: 1, scaleX: 1, duration: 0.5, ease: "power3.out" }, s + 0.12);
+          tl.fromTo(hop.heart, { scale: 0, rotation: -16 }, { scale: 1, rotation: -8, duration: 0.36, ease: hop.ease }, s + 0.04);
+
+          // It flies over.
+          tl.fromTo(flight, { p: 0 }, { p: 1, duration: 0.86, ease: "power1.inOut", onUpdate: place }, s + 0.34);
+          tl.to(hop.heart, { rotation: 10, duration: 0.86, ease: "power1.inOut" }, s + 0.34);
+          tl.to(hop.heart, { scale: 0, duration: 0.22, ease: "power2.in" }, s + 1.06);
+
+          // The receiver hops, a pink ring goes out, the pill ticks.
+          tl.to(receiver, { y: -36, duration: 0.2, ease: "power2.out" }, s + 1.16);
+          tl.to(receiver, { y: 0, duration: 0.2, ease: "power2.in" }, s + 1.36);
+          tl.to(receiver, { scaleY: 0.95, scaleX: 1.03, duration: 0.08, ease: "power2.out" }, s + 1.54);
+          tl.to(receiver, { scaleY: 1, scaleX: 1, duration: 0.28, ease: "power3.out" }, s + 1.62);
+          tl.fromTo(hop.to + " .pulse", { opacity: 1, scale: 0.92 }, { opacity: 0, scale: 1.34, duration: 0.7, ease: "power3.out" }, s + 1.16);
+          tl.to("#pill", { scale: 1.1, duration: 0.14, ease: "power2.out" }, s + 1.18);
+          tl.to("#pill", { scale: 1, duration: 0.5, ease: "power3.out" }, s + 1.32);
+        });
+
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>

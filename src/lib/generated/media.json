@@ -1,0 +1,76 @@
+{
+  "loop-lock-screen": {
+    "name": "loop-lock-screen",
+    "kind": "loop",
+    "width": 1080,
+    "height": 1080,
+    "fps": 30,
+    "duration": 6,
+    "ground": "#15122E",
+    "posterAt": 1.9,
+    "composition": "/compositions/loop-lock-screen/index.html",
+    "mp4": "/media/loop-lock-screen.mp4",
+    "poster": "/media/loop-lock-screen.webp"
+  },
+  "loop-water-round": {
+    "name": "loop-water-round",
+    "kind": "loop",
+    "width": 1080,
+    "height": 1080,
+    "fps": 30,
+    "duration": 6,
+    "ground": "#221E45",
+    "posterAt": 3.95,
+    "composition": "/compositions/loop-water-round/index.html",
+    "mp4": "/media/loop-water-round.mp4",
+    "poster": "/media/loop-water-round.webp"
+  },
+  "loop-nothing-resets": {
+    "name": "loop-nothing-resets",
+    "kind": "loop",
+    "width": 1080,
+    "height": 1080,
+    "fps": 30,
+    "duration": 6,
+    "ground": "#FFF6E5",
+    "posterAt": 4.35,
+    "composition": "/compositions/loop-nothing-resets/index.html",
+    "mp4": "/media/loop-nothing-resets.mp4",
+    "poster": "/media/loop-nothing-resets.webp"
+  },
+  "loop-kudos": {
+    "name": "loop-kudos",
+    "kind": "loop",
+    "width": 1080,
+    "height": 1080,
+    "fps": 30,
+    "duration": 6,
+    "ground": "#FFB02E",
+    "posterAt": 0.95,
+    "composition": "/compositions/loop-kudos/index.html",
+    "mp4": "/media/loop-kudos.mp4",
+    "poster": "/media/loop-kudos.webp"
+  },
+  "burst-badge": {
+    "name": "burst-badge",
+    "kind": "burst",
+    "width": 1080,
+    "height": 1080,
+    "fps": 30,
+    "duration": 2.4,
+    "webm": "/media/burst-badge.webm",
+    "hevc": "/media/burst-badge-hevc.mp4",
+    "poster": "/media/burst-badge.png"
+  },
+  "burst-cheer": {
+    "name": "burst-cheer",
+    "kind": "burst",
+    "width": 1080,
+    "height": 1080,
+    "fps": 30,
+    "duration": 2.4,
+    "webm": "/media/burst-cheer.webm",
+    "hevc": "/media/burst-cheer-hevc.mp4",
+    "poster": "/media/burst-cheer.png"
+  }
+}

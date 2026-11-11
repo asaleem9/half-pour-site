@@ -1,0 +1,86 @@
+---
+/**
+ * A live motion loop: one of the HyperFrames compositions published by scripts/build-media.mjs, playing
+ * in the page. It renders as the loop's poster in a square that never changes size; behaviours/hf-player.ts
+ * swaps in the live composition when it comes near the viewport, or a plain video when it cannot.
+ */
+import media from "@/lib/generated/media.json";
+
+interface Props {
+  /** A loop in src/lib/generated/media.json, for example "loop-water-round". */
+  name: string;
+  /** What the loop shows, for people who cannot see it. */
+  label: string;
+  class?: string;
+}
+
+interface Loop {
+  kind: string;
+  width: number;
+  height: number;
+  ground: string;
+  posterAt: number;
+  composition: string;
+  mp4: string;
+  poster: string;
+}
+
+const { name, label, class: className = "" } = Astro.props;
+const loop = (media as Record<string, Partial<Loop>>)[name];
+if (!loop || loop.kind !== "loop") throw new Error(`HfPlayer: "${name}" is not a loop in media.json; run npm run media`);
+---
+
+<div
+  class:list={["hf-player", className]}
+  role="img"
+  aria-label={label}
+  style={`aspect-ratio:${loop.width}/${loop.height};background:${loop.ground}`}
+  data-hf-player
+  data-src={loop.composition}
+  data-mp4={loop.mp4}
+  data-poster={loop.poster}
+  data-poster-at={loop.posterAt}
+  data-ground={loop.ground}
+  data-width={loop.width}
+  data-height={loop.height}
+>
+  <img class="hf-player__poster" src={loop.poster} alt="" width={loop.width} height={loop.height} loading="lazy" decoding="async" />
+</div>
+
+<style is:global>
+  .hf-player {
+    position: relative;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .hf-player__poster,
+  .hf-player__stage {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+  }
+  .hf-player__poster {
+    z-index: 1;
+    object-fit: cover;
+    transition: opacity 400ms ease-out;
+  }
+  .hf-player__stage {
+    object-fit: cover;
+    border: 0;
+  }
+  /* Once the live composition (or the video) has a frame up, the poster steps aside. */
+  .hf-player.is-live .hf-player__poster {
+    opacity: 0;
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  import { initHfPlayers } from "@/behaviours/hf-player";
+  initHfPlayers();
+</script>

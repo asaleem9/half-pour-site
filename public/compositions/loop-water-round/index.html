@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1080" />
+    <title>Half Pour: the water round</title>
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Fredoka"; src: url("assets/fonts/Fredoka.woff2") format("woff2"); font-weight: 300 700; font-display: block; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1080px; overflow: hidden; background: #221E45; }
+      #root { position: relative; width: 1080px; height: 1080px; overflow: hidden; background: #221E45; color: #FFF6E5;
+        font-family: "Fredoka", sans-serif; font-weight: 600; line-height: 1; }
+      .layer { position: absolute; inset: 0; }
+      .star { position: absolute; display: block; }
+
+      /* The pace ring: a thick sticker ring around a clock face. */
+      #dial { position: absolute; left: 28px; top: 146px; width: 680px; height: 701px; display: block; overflow: visible; }
+
+      .token { position: absolute; top: 150px; width: 100px; height: 100px; border-radius: 50%; background: #2E2960; border: 5px solid #FFF6E5;
+        box-shadow: 0 8px 0 #3B3572; overflow: hidden; }
+      .token b { position: absolute; left: -1px; top: -1px; width: 92px; height: 92px; border-radius: 50%; background: #3DB2FF; display: flex;
+        align-items: center; justify-content: center; }
+      .token svg { width: 36px; height: 44px; display: block; }
+
+      #pill { position: absolute; left: 64px; top: 884px; height: 124px; padding: 0 46px 0 38px; border-radius: 62px; background: #3DB2FF;
+        border: 5px solid #FFF6E5; box-shadow: 0 12px 0 #1486D6; color: #1F1A3D; font-size: 64px; letter-spacing: 0.01em; white-space: nowrap;
+        display: flex; align-items: center; gap: 20px; transform-origin: 50% 50%; }
+      #pill svg { width: 48px; height: 58px; display: block; flex: none; }
+
+      #pourie-bob { position: absolute; left: 676px; top: 404px; width: 372px; height: 630px; }
+      #pourie { display: block; width: 372px; height: 630px; transform-origin: 50% 100%; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="6" data-width="1080" data-height="1080" data-layout-allow-overlap>
+      <div id="sky" class="layer">
+        <svg class="star s-a" style="left:716px;top:66px;width:34px;height:34px" viewBox="0 0 40 40"><path fill="#FFB83D" d="M20 0c2 12 8 18 20 20-12 2-18 8-20 20-2-12-8-18-20-20 12-2 18-8 20-20z"/></svg>
+        <svg class="star s-b" style="left:990px;top:318px;width:30px;height:30px" viewBox="0 0 40 40"><path fill="#FFF6E5" d="M20 0c2 12 8 18 20 20-12 2-18 8-20 20-2-12-8-18-20-20 12-2 18-8 20-20z"/></svg>
+        <svg class="star s-c" style="left:60px;top:70px;width:30px;height:30px" viewBox="0 0 40 40"><path fill="#FFF6E5" d="M20 0c2 12 8 18 20 20-12 2-18 8-20 20-2-12-8-18-20-20 12-2 18-8 20-20z"/></svg>
+        <svg class="star s-a" style="left:604px;top:980px;width:38px;height:38px" viewBox="0 0 40 40"><path fill="#5CC1FF" d="M20 0c2 12 8 18 20 20-12 2-18 8-20 20-2-12-8-18-20-20 12-2 18-8 20-20z"/></svg>
+        <svg class="star s-c" style="left:26px;top:790px;width:24px;height:24px" viewBox="0 0 40 40"><path fill="#FFB83D" d="M20 0c2 12 8 18 20 20-12 2-18 8-20 20-2-12-8-18-20-20 12-2 18-8 20-20z"/></svg>
+      </div>
+
+      <div id="scene" class="layer">
+        <svg id="dial" viewBox="0 0 640 660" fill="none">
+          <g id="ring">
+            <circle cx="320" cy="334" r="310" fill="#3B3572" />
+            <circle cx="320" cy="320" r="310" fill="#FFF6E5" />
+            <circle cx="320" cy="320" r="305" fill="#2E2960" />
+            <circle id="arc" cx="320" cy="320" r="270" stroke="#FFB02E" stroke-width="50" stroke-linecap="round"
+              stroke-dasharray="1696.46 1696.46" stroke-dashoffset="1695.46" transform="rotate(-90 320 320)" />
+            <circle cx="320" cy="320" r="235" fill="#FFF6E5" />
+            <circle cx="320" cy="320" r="230" fill="#15122E" />
+            <g stroke="#ADA6CF" stroke-width="8" stroke-linecap="round">
+              <path d="M416 153.7 L405 172.8" /><path d="M486.3 224 L467.2 235" /><path d="M486.3 416 L467.2 405" /><path d="M416 486.3 L405 467.2" />
+              <path d="M224 486.3 L235 467.2" /><path d="M153.7 416 L172.8 405" /><path d="M153.7 224 L172.8 235" /><path d="M224 153.7 L235 172.8" />
+            </g>
+            <g stroke="#FFF6E5" stroke-width="12" stroke-linecap="round">
+              <path d="M320 126 L320 160" /><path d="M514 320 L480 320" /><path d="M320 514 L320 480" /><path d="M126 320 L160 320" />
+            </g>
+            <g id="hand">
+              <path d="M320 320 L320 176" stroke="#FFF6E5" stroke-width="36" stroke-linecap="round" />
+              <path id="hand-fill" d="M320 320 L320 176" stroke="#FFB02E" stroke-width="22" stroke-linecap="round" />
+            </g>
+            <circle cx="320" cy="320" r="30" fill="#FFF6E5" />
+            <circle cx="320" cy="320" r="15" fill="#1F1A3D" />
+          </g>
+        </svg>
+
+        <div class="token" style="left:712px"><b><svg viewBox="0 0 44 52"><path fill="#FFF6E5" d="M22 2C22 2 4 22 4 33a18 18 0 0 0 36 0C40 22 22 2 22 2z"/></svg></b></div>
+        <div class="token" style="left:832px"><b id="fill"><svg viewBox="0 0 44 52"><path fill="#FFF6E5" d="M22 2C22 2 4 22 4 33a18 18 0 0 0 36 0C40 22 22 2 22 2z"/></svg></b></div>
+        <div class="token" style="left:952px"></div>
+
+        <div id="pill"><svg viewBox="0 0 44 52"><path fill="#1F1A3D" d="M22 2C22 2 4 22 4 33a18 18 0 0 0 36 0C40 22 22 2 22 2z"/></svg><span>Water round</span></div>
+
+        <div id="pourie-bob"><img id="pourie" src="assets/pourie-water-960.webp" alt="" /></div>
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+        const FULL = 1696.46;
+        const AMBER = "#FFB02E";
+        const BLUE = "#3DB2FF";
+
+        gsap.set("#ring", { svgOrigin: "320 320" });
+        gsap.set("#hand", { svgOrigin: "320 320" });
+        // The empty ring is a dot at twelve: a dash one unit long. Set here so the first and last frames share one source.
+        gsap.set("#arc", { strokeDashoffset: FULL - 1, stroke: AMBER });
+        gsap.set("#hand-fill", { stroke: AMBER });
+        gsap.set("#fill", { scale: 0, transformOrigin: "50% 50%" });
+        gsap.set("#pill", { scale: 0.5, opacity: 0 });
+
+        // Always moving a little.
+        tl.to("#pourie-bob", { y: -10, duration: 1.5, ease: "sine.inOut", yoyo: true, repeat: 3 }, 0);
+        tl.to(".s-a", { scale: 0.55, transformOrigin: "50% 50%", duration: 0.75, ease: "sine.inOut", yoyo: true, repeat: 7 }, 0);
+        tl.to(".s-b", { scale: 0.6, transformOrigin: "50% 50%", duration: 1, ease: "sine.inOut", yoyo: true, repeat: 5 }, 0);
+        tl.to(".s-c", { scale: 0.5, transformOrigin: "50% 50%", duration: 1.5, ease: "sine.inOut", yoyo: true, repeat: 3 }, 0);
+
+        // The pace ring fills once round the clock, the hand going with it.
+        tl.to("#arc", { strokeDashoffset: 0, duration: 2.2, ease: "power1.inOut" }, 0.25);
+        tl.to("#hand", { rotation: 360, duration: 2.2, ease: "power1.inOut" }, 0.25);
+
+        // Full: the ring flips like a coin and lands blue.
+        tl.to("#ring", { scaleX: 0, duration: 0.17, ease: "power2.in" }, 2.5);
+        tl.set("#arc", { stroke: BLUE }, 2.67);
+        tl.set("#hand-fill", { stroke: BLUE }, 2.67);
+        tl.to("#ring", { scaleX: 1, duration: 0.55, ease: "power3.out" }, 2.67);
+
+        // "Water round" pops, Pourie takes a sip, a water token fills.
+        tl.to("#pill", { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.4)" }, 3.0);
+        tl.to("#pourie", { rotation: -5, scaleY: 0.97, duration: 0.3, ease: "power2.out" }, 3.3);
+        tl.to("#pourie", { rotation: 0, scaleY: 1, duration: 0.8, ease: "power3.out" }, 3.75);
+        tl.to("#fill", { scale: 1, duration: 0.5, ease: "power3.out" }, 3.6);
+
+        // The ring unwinds and warms back to amber for the next lap.
+        tl.to("#pill", { scale: 0.5, opacity: 0, duration: 0.3, ease: "power2.in" }, 4.7);
+        tl.to("#arc", { strokeDashoffset: FULL - 1, duration: 1.15, ease: "power3.inOut" }, 4.75);
+        tl.to("#hand", { rotation: 0, duration: 1.15, ease: "power3.inOut" }, 4.75);
+        tl.to("#arc", { stroke: AMBER, duration: 0.5, ease: "power1.inOut" }, 5.3);
+        tl.to("#hand-fill", { stroke: AMBER, duration: 0.5, ease: "power1.inOut" }, 5.3);
+        tl.to("#fill", { scale: 0, duration: 0.42, ease: "power3.inOut" }, 5.0);
+
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>

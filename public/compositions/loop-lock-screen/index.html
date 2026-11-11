@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1080" />
+    <title>Half Pour: one tap from the Lock Screen</title>
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Fredoka"; src: url("assets/fonts/Fredoka.woff2") format("woff2"); font-weight: 300 700; font-display: block; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1080px; overflow: hidden; background: #15122E; }
+      #root { position: relative; width: 1080px; height: 1080px; overflow: hidden; background: #15122E; color: #FFF6E5;
+        font-family: "Fredoka", sans-serif; font-weight: 600; line-height: 1; }
+      .layer { position: absolute; inset: 0; }
+      .abs { position: absolute; }
+      .star { position: absolute; display: block; }
+
+      /* The Lock Screen card: night surface, cream outline, solid bottom edge. */
+      #card { position: absolute; left: 64px; top: 176px; width: 664px; height: 700px; border-radius: 60px; background: #221E45;
+        border: 5px solid #FFF6E5; box-shadow: 0 14px 0 #3B3572; }
+      #lock { position: absolute; left: 366px; top: 64px; width: 60px; height: 76px; }
+      #label { position: absolute; left: 47px; top: 52px; font-size: 56px; letter-spacing: 0.01em; display: flex; align-items: center; gap: 18px; }
+      #label i { display: block; width: 26px; height: 26px; border-radius: 50%; background: #FFB83D; }
+      #count { position: absolute; right: 47px; top: 50px; font-size: 60px; font-weight: 700; display: flex; align-items: center; gap: 14px; white-space: nowrap; }
+      #digit { position: relative; display: block; width: 38px; height: 64px; overflow: hidden; }
+      #digit span { position: absolute; left: 0; top: 2px; width: 38px; text-align: center; display: block; }
+
+      .token { position: absolute; top: 166px; width: 116px; height: 116px; border-radius: 50%; background: #2E2960; border: 5px solid #FFF6E5;
+        box-shadow: 0 8px 0 #3B3572; overflow: hidden; }
+      .token b { position: absolute; left: -1px; top: -1px; width: 108px; height: 108px; border-radius: 50%; background: #FFB83D; display: block; }
+
+      /* The app's button: a flat face that drops onto a darker edge when pressed. */
+      .btn { position: absolute; left: 47px; width: 560px; }
+      .btn .edge, .btn .face { position: absolute; left: 0; width: 560px; border-radius: 36px; }
+      .btn .edge { top: 14px; }
+      .btn .face { top: 0; display: flex; align-items: center; justify-content: center; gap: 18px; white-space: nowrap; }
+      #beer { top: 340px; height: 150px; }
+      #beer .edge, #beer .face { height: 136px; }
+      #beer .edge { background: #C97700; }
+      #beer .face { background: #FFB02E; color: #2A1600; font-size: 64px; }
+      #water { top: 518px; height: 130px; }
+      #water .edge, #water .face { height: 116px; }
+      #water .edge { background: #1486D6; }
+      #water .face { background: #3DB2FF; color: #1F1A3D; font-size: 56px; }
+      #water svg { width: 44px; height: 52px; display: block; }
+
+      .disc { position: absolute; border-radius: 50%; border: 5px solid #FFF6E5; display: flex; align-items: center; justify-content: center; }
+      #plus { left: 664px; top: 110px; width: 132px; height: 132px; background: #FFB02E; box-shadow: 0 10px 0 #C97700; color: #2A1600; font-size: 62px; font-weight: 700; }
+      #drop { left: 6px; top: 640px; width: 120px; height: 120px; background: #3DB2FF; box-shadow: 0 10px 0 #1486D6; }
+      #drop svg { width: 50px; height: 60px; display: block; }
+
+      #pourie-bob { position: absolute; left: 706px; top: 446px; width: 358px; height: 583px; }
+      #pourie { display: block; width: 358px; height: 583px; transform-origin: 50% 100%; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="6" data-width="1080" data-height="1080" data-layout-allow-overlap>
+      <div id="sky" class="layer">
+        <svg class="abs" style="left:838px;top:150px;width:150px;height:150px" viewBox="0 0 150 150"><path fill="#FFF6E5" d="M97 12a66 66 0 1 0 41 92A54 54 0 0 1 97 12z"/></svg>
+        <svg class="star s-a" style="left:760px;top:96px;width:46px;height:46px" viewBox="0 0 40 40"><path fill="#FFB83D" d="M20 0c2 12 8 18 20 20-12 2-18 8-20 20-2-12-8-18-20-20 12-2 18-8 20-20z"/></svg>
+        <svg class="star s-b" style="left:1000px;top:330px;width:30px;height:30px" viewBox="0 0 40 40"><path fill="#FFF6E5" d="M20 0c2 12 8 18 20 20-12 2-18 8-20 20-2-12-8-18-20-20 12-2 18-8 20-20z"/></svg>
+        <svg class="star s-c" style="left:770px;top:352px;width:24px;height:24px" viewBox="0 0 40 40"><path fill="#5CC1FF" d="M20 0c2 12 8 18 20 20-12 2-18 8-20 20-2-12-8-18-20-20 12-2 18-8 20-20z"/></svg>
+        <svg class="star s-b" style="left:104px;top:72px;width:34px;height:34px" viewBox="0 0 40 40"><path fill="#FFF6E5" d="M20 0c2 12 8 18 20 20-12 2-18 8-20 20-2-12-8-18-20-20 12-2 18-8 20-20z"/></svg>
+        <svg class="star s-c" style="left:612px;top:92px;width:22px;height:22px" viewBox="0 0 40 40"><path fill="#FFB83D" d="M20 0c2 12 8 18 20 20-12 2-18 8-20 20-2-12-8-18-20-20 12-2 18-8 20-20z"/></svg>
+        <svg class="star s-a" style="left:150px;top:950px;width:40px;height:40px" viewBox="0 0 40 40"><path fill="#5CC1FF" d="M20 0c2 12 8 18 20 20-12 2-18 8-20 20-2-12-8-18-20-20 12-2 18-8 20-20z"/></svg>
+        <svg class="star s-c" style="left:392px;top:986px;width:26px;height:26px" viewBox="0 0 40 40"><path fill="#FFF6E5" d="M20 0c2 12 8 18 20 20-12 2-18 8-20 20-2-12-8-18-20-20 12-2 18-8 20-20z"/></svg>
+        <svg class="star s-b" style="left:590px;top:940px;width:36px;height:36px" viewBox="0 0 40 40"><path fill="#FFB83D" d="M20 0c2 12 8 18 20 20-12 2-18 8-20 20-2-12-8-18-20-20 12-2 18-8 20-20z"/></svg>
+      </div>
+
+      <div id="scene" class="layer">
+        <svg id="lock" viewBox="0 0 60 76" fill="none"><path d="M14 34V24a16 16 0 0 1 32 0v10" stroke="#FFF6E5" stroke-width="9" stroke-linecap="round"/><rect x="2" y="32" width="56" height="42" rx="13" fill="#FFF6E5"/></svg>
+
+        <div id="card">
+          <div id="label"><i></i><span>Tonight</span></div>
+          <div id="count"><span id="digit"><span id="d2">2</span><span id="d3">3</span></span><span>of 4</span></div>
+
+          <div class="token" style="left:47px"><b></b></div>
+          <div class="token" style="left:195px"><b></b></div>
+          <div class="token" style="left:343px"><b id="fill"></b></div>
+          <div class="token" style="left:491px"></div>
+
+          <div id="beer" class="btn"><div class="edge"></div><div class="face" id="beer-face"><span>+ Beer</span></div></div>
+          <div id="water" class="btn"><div class="edge"></div><div class="face" id="water-face">
+            <svg viewBox="0 0 44 52"><path fill="#1F1A3D" d="M22 2C22 2 4 22 4 33a18 18 0 0 0 36 0C40 22 22 2 22 2z"/></svg><span>Water</span></div></div>
+        </div>
+
+        <div id="plus" class="disc"><span>+1</span></div>
+        <div id="drop" class="disc"><svg viewBox="0 0 44 52"><path fill="#FFF6E5" d="M22 2C22 2 4 22 4 33a18 18 0 0 0 36 0C40 22 22 2 22 2z"/></svg></div>
+
+        <div id="pourie-bob"><img id="pourie" src="assets/web-phone-960.webp" alt="" /></div>
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+        const tokens = gsap.utils.toArray(".token");
+
+        // Resting state: two of four used.
+        gsap.set("#fill", { scale: 0, transformOrigin: "50% 50%" });
+        gsap.set("#d3", { y: 64, opacity: 0 });
+        gsap.set("#plus", { scale: 0, opacity: 0, transformOrigin: "50% 50%" });
+        gsap.set("#drop", { scale: 0, opacity: 0, transformOrigin: "50% 50%" });
+
+        // Always moving a little: Pourie breathes, the stars blink. Each cycle divides the six seconds.
+        tl.to("#pourie-bob", { y: -9, duration: 1.5, ease: "sine.inOut", yoyo: true, repeat: 3 }, 0);
+        tl.to(".s-a", { scale: 0.55, transformOrigin: "50% 50%", duration: 0.75, ease: "sine.inOut", yoyo: true, repeat: 7 }, 0);
+        tl.to(".s-b", { scale: 0.6, transformOrigin: "50% 50%", duration: 1, ease: "sine.inOut", yoyo: true, repeat: 5 }, 0);
+        tl.to(".s-c", { scale: 0.5, transformOrigin: "50% 50%", duration: 1.5, ease: "sine.inOut", yoyo: true, repeat: 3 }, 0);
+
+        // One tap: the amber button drops onto its edge and comes back.
+        tl.to("#beer-face", { y: 14, duration: 0.1, ease: "power2.in" }, 0.6);
+        tl.to("#beer-face", { y: 0, duration: 0.5, ease: "power3.out" }, 0.74);
+
+        // The third token fills, the count turns over, a +1 pops off the corner of the card.
+        tl.to("#fill", { scale: 1, duration: 0.5, ease: "back.out(1.4)" }, 0.76);
+        tl.to("#d2", { y: -64, opacity: 0, duration: 0.42, ease: "power3.out" }, 0.78);
+        tl.to("#d3", { y: 0, opacity: 1, duration: 0.42, ease: "power3.out" }, 0.78);
+        tl.to("#plus", { scale: 1, opacity: 1, duration: 0.4, ease: "power3.out" }, 0.84);
+        tl.to("#plus", { y: -34, duration: 1.5, ease: "power3.out" }, 0.84);
+        tl.to("#plus", { scale: 0.6, opacity: 0, duration: 0.4, ease: "power2.in" }, 2.0);
+
+        // Pourie saw it.
+        tl.to("#pourie", { scaleY: 0.94, scaleX: 1.04, duration: 0.12, ease: "power2.out" }, 1.0);
+        tl.to("#pourie", { y: -58, scaleY: 1.03, scaleX: 0.98, duration: 0.26, ease: "power2.out" }, 1.12);
+        tl.to("#pourie", { y: 0, scaleY: 0.95, scaleX: 1.04, duration: 0.22, ease: "power2.in" }, 1.38);
+        tl.to("#pourie", { scaleY: 1, scaleX: 1, duration: 0.5, ease: "power3.out" }, 1.6);
+
+        // Then a water: the blue button, and a drop sticker on the other corner.
+        tl.to("#water-face", { y: 14, duration: 0.1, ease: "power2.in" }, 2.75);
+        tl.to("#water-face", { y: 0, duration: 0.5, ease: "power3.out" }, 2.89);
+        tl.to("#drop", { scale: 1, opacity: 1, duration: 0.45, ease: "power3.out" }, 2.95);
+        tl.to("#drop", { y: -30, duration: 1.4, ease: "power3.out" }, 2.95);
+        tl.to("#drop", { scale: 0.6, opacity: 0, duration: 0.4, ease: "power2.in" }, 4.15);
+        tl.to("#pourie", { rotation: 5, duration: 0.3, ease: "power2.out" }, 3.15);
+        tl.to("#pourie", { rotation: 0, duration: 0.7, ease: "power3.out" }, 3.45);
+
+        // The loop winds back: the tokens ripple from the right, the third one empties, the count returns.
+        tokens.slice().reverse().forEach(function (token, i) {
+          tl.to(token, { y: -14, duration: 0.18, ease: "power2.out" }, 4.92 + i * 0.07);
+          tl.to(token, { y: 0, duration: 0.4, ease: "power3.out" }, 5.1 + i * 0.07);
+        });
+        tl.to("#fill", { scale: 0, duration: 0.42, ease: "power3.inOut" }, 5.04);
+        tl.to("#d3", { y: 64, opacity: 0, duration: 0.42, ease: "power3.out" }, 5.1);
+        tl.to("#d2", { y: 0, opacity: 1, duration: 0.42, ease: "power3.out" }, 5.1);
+        tl.set("#plus", { y: 0 }, 5.6);
+        tl.set("#drop", { y: 0 }, 5.6);
+
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "half-pour-hyperframes",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "for p in loop-lock-screen loop-water-round loop-nothing-resets loop-kudos burst-badge burst-cheer; do (cd $p && npx --yes hyperframes@0.9.32 check) || exit 1; done",
+    "preview:lock-screen": "cd loop-lock-screen && npx --yes hyperframes@0.9.32 preview",
+    "preview:water-round": "cd loop-water-round && npx --yes hyperframes@0.9.32 preview",
+    "preview:nothing-resets": "cd loop-nothing-resets && npx --yes hyperframes@0.9.32 preview",
+    "preview:kudos": "cd loop-kudos && npx --yes hyperframes@0.9.32 preview",
+    "preview:badge": "cd burst-badge && npx --yes hyperframes@0.9.32 preview",
+    "preview:cheer": "cd burst-cheer && npx --yes hyperframes@0.9.32 preview"
+  }
+}

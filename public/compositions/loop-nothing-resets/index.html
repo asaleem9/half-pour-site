@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1080" />
+    <title>Half Pour: nothing resets</title>
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Fredoka"; src: url("assets/fonts/Fredoka.woff2") format("woff2"); font-weight: 300 700; font-display: block; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1080px; overflow: hidden; background: #FFF6E5; }
+      #root { position: relative; width: 1080px; height: 1080px; overflow: hidden; background: #FFF6E5; color: #1F1A3D;
+        font-family: "Fredoka", sans-serif; font-weight: 700; line-height: 1; }
+      .layer { position: absolute; inset: 0; }
+
+      /* The count: an amber sticker numeral with an indigo outline and a solid bottom edge. */
+      #six { position: absolute; left: 36px; top: 52px; width: 440px; height: 580px; display: block; overflow: visible; }
+
+      .token { position: absolute; width: 160px; height: 160px; border-radius: 50%; background: #1FC98A; border: 5px solid #1F1A3D;
+        box-shadow: 0 9px 0 #1F1A3D; display: flex; align-items: center; justify-content: center; transform-origin: 50% 50%; }
+      .token svg { width: 84px; height: 84px; display: block; }
+
+      #shield { position: absolute; left: 872px; top: 262px; width: 176px; height: 206px; display: block; overflow: visible; transform-origin: 50% 60%; }
+
+      #words { position: absolute; left: 488px; top: 586px; font-size: 142px; letter-spacing: 0.005em; white-space: nowrap; }
+      #words span { display: block; height: 154px; }
+      #rule { position: absolute; left: 484px; top: 886px; width: 470px; height: 40px; display: block; overflow: visible; }
+
+      #pourie-bob { position: absolute; left: 26px; top: 650px; width: 430px; height: 398px; }
+      #pourie { display: block; width: 430px; height: 398px; transform-origin: 38% 100%; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="6" data-width="1080" data-height="1080" data-layout-allow-overlap>
+      <div id="scene" class="layer">
+        <!-- The numeral is the Fredoka Bold "6" as an outline, so it can carry the sticker edge. -->
+        <svg id="six" viewBox="0 0 440 580" role="img" aria-label="6">
+          <path transform="translate(58.5 514) scale(0.62 -0.62)" fill="#1F1A3D" stroke="#1F1A3D" stroke-width="26" stroke-linejoin="round" d="M267 -21Q188 -21 131.5 13.5Q75 48 44.5 112.5Q14 177 14 266Q14 342 32.0 407.0Q50 472 83.5 524.5Q117 577 164.5 614.0Q212 651 271.5 671.0Q331 691 400 691Q422 691 442.0 687.0Q462 683 475.0 664.0Q488 645 488 599Q488 554 474.5 535.0Q461 516 440.0 512.0Q419 508 396 508Q351 508 319.5 496.0Q288 484 267.5 466.0Q247 448 235.0 430.0Q223 412 218.5 400.0Q214 388 214 388L202 399Q202 399 212.5 403.5Q223 408 239.5 412.0Q256 416 274 416Q337 416 390.0 387.0Q443 358 475.0 311.0Q507 264 507 208Q507 144 475.0 92.0Q443 40 388.5 9.5Q334 -21 267 -21ZM263 150Q285 150 299.0 155.5Q313 161 319.5 173.0Q326 185 326 203Q326 218 319.0 229.0Q312 240 299.0 246.0Q286 252 269 252Q249 252 233.5 246.0Q218 240 210.0 229.5Q202 219 202 205Q202 186 208.0 173.5Q214 161 227.5 155.5Q241 150 263 150Z" />
+          <path transform="translate(58.5 498) scale(0.62 -0.62)" fill="#FFB02E" stroke="#1F1A3D" stroke-width="26" stroke-linejoin="round" paint-order="stroke" d="M267 -21Q188 -21 131.5 13.5Q75 48 44.5 112.5Q14 177 14 266Q14 342 32.0 407.0Q50 472 83.5 524.5Q117 577 164.5 614.0Q212 651 271.5 671.0Q331 691 400 691Q422 691 442.0 687.0Q462 683 475.0 664.0Q488 645 488 599Q488 554 474.5 535.0Q461 516 440.0 512.0Q419 508 396 508Q351 508 319.5 496.0Q288 484 267.5 466.0Q247 448 235.0 430.0Q223 412 218.5 400.0Q214 388 214 388L202 399Q202 399 212.5 403.5Q223 408 239.5 412.0Q256 416 274 416Q337 416 390.0 387.0Q443 358 475.0 311.0Q507 264 507 208Q507 144 475.0 92.0Q443 40 388.5 9.5Q334 -21 267 -21ZM263 150Q285 150 299.0 155.5Q313 161 319.5 173.0Q326 185 326 203Q326 218 319.0 229.0Q312 240 299.0 246.0Q286 252 269 252Q249 252 233.5 246.0Q218 240 210.0 229.5Q202 219 202 205Q202 186 208.0 173.5Q214 161 227.5 155.5Q241 150 263 150Z" />
+        </svg>
+
+        <div class="token" style="left:466px;top:128px"><svg viewBox="0 0 50 50" fill="none" stroke="#1F1A3D" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 26l11 11 21-23"/></svg></div>
+        <div class="token" style="left:654px;top:128px"><svg viewBox="0 0 50 50" fill="none" stroke="#1F1A3D" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 26l11 11 21-23"/></svg></div>
+        <div class="token" style="left:842px;top:128px"><svg viewBox="0 0 50 50" fill="none" stroke="#1F1A3D" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 26l11 11 21-23"/></svg></div>
+        <div class="token" style="left:466px;top:316px"><svg viewBox="0 0 50 50" fill="none" stroke="#1F1A3D" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 26l11 11 21-23"/></svg></div>
+        <div class="token" style="left:654px;top:316px"><svg viewBox="0 0 50 50" fill="none" stroke="#1F1A3D" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 26l11 11 21-23"/></svg></div>
+        <div class="token" id="last" style="left:842px;top:316px"><svg id="last-tick" viewBox="0 0 50 50" fill="none" stroke="#1F1A3D" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 26l11 11 21-23"/></svg></div>
+
+        <svg id="shield" viewBox="0 0 176 206" fill="none">
+          <path d="M88 16 L160 40 V98 C160 146 128 178 88 196 C48 178 16 146 16 98 V40 Z" fill="#1F1A3D" stroke="#1F1A3D" stroke-width="10" stroke-linejoin="round" />
+          <path d="M88 6 L160 30 V88 C160 136 128 168 88 186 C48 168 16 136 16 88 V30 Z" fill="#1FC98A" stroke="#1F1A3D" stroke-width="10" stroke-linejoin="round" />
+          <path d="M88 6 L160 30 V88 C160 136 128 168 88 186 Z" fill="#0F9A66" />
+          <path d="M88 6 L160 30 V88 C160 136 128 168 88 186 C48 168 16 136 16 88 V30 Z" stroke="#1F1A3D" stroke-width="10" stroke-linejoin="round" />
+          <path d="M58 94 L80 116 L120 70" stroke="#FFF6E5" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+
+        <div id="words"><span>Nothing</span><span>resets.</span></div>
+        <svg id="rule" viewBox="0 0 470 40" fill="none"><path id="rule-line" d="M12 22 C120 6 240 34 458 14" stroke="#FFB02E" stroke-width="16" stroke-linecap="round" /></svg>
+
+        <div id="pourie-bob"><img id="pourie" src="assets/pourie-trophy-960.webp" alt="" /></div>
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+        const MINT = "#1FC98A";
+        const BUTTER = "#FFEBC7";
+        const RULE = 452;
+
+        gsap.set("#shield", { scale: 0, opacity: 0, rotation: -14 });
+        gsap.set("#rule-line", { strokeDasharray: RULE + " " + (RULE + 40), strokeDashoffset: RULE + 20 });
+
+        // Pourie breathes the whole way through.
+        tl.to("#pourie-bob", { y: -9, duration: 1.5, ease: "sine.inOut", yoyo: true, repeat: 3 }, 0);
+
+        // One week gets away: its token tips over, sags and goes pale.
+        tl.to("#last", { rotation: 21, y: 13, duration: 0.36, ease: "sine.inOut" }, 0.7);
+        tl.to("#last", { rotation: 10, y: 8, duration: 0.3, ease: "sine.inOut" }, 1.06);
+        tl.to("#last", { rotation: 14, y: 10, duration: 0.28, ease: "sine.inOut" }, 1.36);
+        tl.to("#last", { backgroundColor: BUTTER, duration: 0.5, ease: "power2.out" }, 0.8);
+        tl.to("#last-tick", { opacity: 0.22, duration: 0.5, ease: "power2.out" }, 0.8);
+
+        // The shield lands on it. The six does not move.
+        tl.to("#shield", { scale: 1, opacity: 1, rotation: 0, duration: 0.55, ease: "back.out(1.4)" }, 2.0);
+
+        // The token stands back up, mint again.
+        tl.to("#last", { rotation: 0, y: 0, duration: 0.8, ease: "power3.out" }, 2.9);
+        tl.to("#last", { backgroundColor: MINT, duration: 0.5, ease: "power2.out" }, 2.95);
+        tl.to("#last-tick", { opacity: 1, duration: 0.5, ease: "power2.out" }, 2.95);
+
+        // Pourie nods once, and the line gets underlined.
+        tl.to("#pourie", { rotation: 7, duration: 0.26, ease: "power2.out" }, 3.4);
+        tl.to("#pourie", { rotation: 0, duration: 0.8, ease: "power3.out" }, 3.66);
+        tl.to("#rule-line", { strokeDashoffset: 0, duration: 0.7, ease: "power3.out" }, 3.75);
+
+        // The shield goes back in the pocket and the underline wipes on through, ready for the next lap.
+        tl.to("#shield", { scale: 0.4, opacity: 0, y: -24, duration: 0.36, ease: "power2.in" }, 4.7);
+        tl.to("#rule-line", { strokeDashoffset: -(RULE + 20), duration: 0.6, ease: "power3.inOut" }, 5.15);
+        tl.set("#shield", { y: 0, rotation: -14, scale: 0 }, 5.8);
+        tl.set("#rule-line", { strokeDashoffset: RULE + 20 }, 5.8);
+
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>
