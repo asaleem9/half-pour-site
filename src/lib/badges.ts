@@ -108,6 +108,6 @@ export const drinks: Drink[] = [
   drink("margarita", "Margarita"),
   drink("seltzer-12-5", "Seltzer"),
   drink("cider-16-5", "Cider"),
-  drink("na-beer", "NA beer", "Alcohol-free, and it still counts as a round."),
+  drink("na-beer", "NA beer", "The alcohol-free one."),
   drink("water", "Water", "The one drink here with badges to its name."),
 ];

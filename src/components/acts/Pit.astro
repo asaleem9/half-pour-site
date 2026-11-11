@@ -1,0 +1,397 @@
+---
+/**
+ * The badge pit: every badge in the app and the drinks it tracks, as stickers in a tray.
+ * Without scripts (or with reduced motion) they sit in a tidy pile and each one opens a card.
+ * behaviours/pit.ts turns the pile into bodies that fall in and can be thrown around.
+ */
+import Pourie from "@/components/rig/Pourie.astro";
+import art from "@/lib/generated/art.json";
+import { badges, drinks, categoryLabels, type BadgeCategory } from "@/lib/badges";
+
+interface ArtEntry {
+  width: number;
+  height: number;
+  sizes: number[];
+}
+const catalog = art as Record<string, ArtEntry>;
+
+/**
+ * Fails the build if a sticker points at art the art pipeline has not made. Badges are drawn well under
+ * 100px, so their small file covers dense screens too; drinks are taller and get a second size.
+ */
+function picture(key: string, small: number, large?: number) {
+  const entry = catalog[key];
+  if (!entry) throw new Error(`Pit: no art entry for "${key}"`);
+  for (const size of large ? [small, large] : [small]) {
+    if (!entry.sizes.includes(size)) throw new Error(`Pit: "${key}" has no ${size}px file`);
+  }
+  const scale = small / Math.max(entry.width, entry.height);
+  const set = (type: string) => (large ? `/art/${key}-${small}.${type} 1x, /art/${key}-${large}.${type} 2x` : `/art/${key}-${small}.${type}`);
+  return {
+    ratio: entry.width / entry.height,
+    width: Math.round(entry.width * scale),
+    height: Math.round(entry.height * scale),
+    webp: `/art/${key}-${small}.webp`,
+    webpSet: set("webp"),
+    avifSet: set("avif"),
+  };
+}
+
+interface Sticker {
+  kind: "badge" | "drink";
+  id: string;
+  name: string;
+  text: string;
+  chip: string;
+  tint: BadgeCategory | "drink";
+  secret: boolean;
+  image: ReturnType<typeof picture>;
+}
+
+const stickers: Sticker[] = [
+  ...badges.map((badge) => ({
+    kind: "badge" as const,
+    id: badge.slug,
+    name: badge.name,
+    text: badge.blurb,
+    chip: categoryLabels[badge.category],
+    tint: badge.category,
+    secret: badge.secret,
+    image: picture(badge.art, 200),
+  })),
+  ...drinks.map((drink) => ({
+    kind: "drink" as const,
+    id: `drink-${drink.id.replace(/[^a-z0-9]+/g, "-")}`,
+    name: drink.name,
+    text: drink.note,
+    chip: "Drink",
+    tint: "drink" as const,
+    secret: false,
+    image: picture(drink.art, 160, 320),
+  })),
+];
+
+// A fixed shuffle and a fixed lean for each sticker, so the pile is the same on every build.
+function mulberry(seed: number) {
+  let state = seed;
+  return () => {
+    state = (state + 0x6d2b79f5) | 0;
+    let t = Math.imul(state ^ (state >>> 15), 1 | state);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+const random = mulberry(31);
+for (let i = stickers.length - 1; i > 0; i--) {
+  const j = Math.floor(random() * (i + 1));
+  [stickers[i], stickers[j]] = [stickers[j], stickers[i]];
+}
+const pile = stickers.map((sticker) => ({
+  ...sticker,
+  lean: Math.round((random() - 0.5) * 26),
+  lift: Math.round(random() * 10) / 100,
+}));
+---
+
+<section class="pit-act mx-auto max-w-[1400px] px-5 py-16 sm:px-8 sm:py-24" aria-labelledby="pit-title" data-pit-section>
+  <div class="pit-head">
+    <h2 id="pit-title" class="text-display">{badges.length} badges.<br />None for drinking more.</h2>
+    <p class="mt-5 max-w-[44ch] text-lede text-muted">
+      Every one is for something you did: pacing, water, closing the tab, bouncing back, showing up. Tap one to see what it is for.
+    </p>
+    <div class="pit-controls mt-10 flex flex-wrap items-center gap-3 sm:mt-6">
+      <button type="button" class="hp-btn hp-btn--secondary hp-btn--compact" data-pit-shake hidden>Shake</button>
+      <button type="button" class="hp-chip min-h-11 cursor-pointer" data-pit-tilt aria-pressed="false" hidden>
+        <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="7.5" y="3" width="9" height="18" rx="2.5" transform="rotate(14 12 12)"></rect>
+          <path d="M3 8.5c.6-1.6 1.6-2.9 3-3.8M21 15.5c-.6 1.6-1.6 2.9-3 3.8"></path>
+        </svg>
+        <span data-pit-tilt-label>Tilt to play</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="pit relative mt-8" data-pit>
+    <Pourie id="pit-pourie" class="pit-pourie pourie-rig--edge" />
+    <div class="pit-frame hp-card hp-card--raised sticker p-0">
+      <div class="pit-field" data-pit-field>
+        <ul class="pit-pile" role="list" aria-label="Badges and drinks" data-pit-pile>
+          {
+            pile.map((sticker) => (
+              <li class="pit-item">
+                <button
+                  type="button"
+                  class:list={["pit-sticker", `pit-sticker--${sticker.kind}`]}
+                  aria-label={sticker.name}
+                  popovertarget={`pit-card-${sticker.id}`}
+                  data-pit-sticker={sticker.kind}
+                  data-tint={sticker.tint}
+                  style={`--lean:${sticker.lean}deg;--lift:${sticker.lift};--ratio:${sticker.image.ratio.toFixed(3)}`}
+                >
+                  <picture>
+                    <source type="image/avif" srcset={sticker.image.avifSet} />
+                    <img
+                      src={sticker.image.webp}
+                      srcset={sticker.image.webpSet}
+                      alt=""
+                      width={sticker.image.width}
+                      height={sticker.image.height}
+                      loading="lazy"
+                      decoding="async"
+                      draggable="false"
+                    />
+                  </picture>
+                </button>
+                <div popover id={`pit-card-${sticker.id}`} class="pit-card" data-pit-card data-tint={sticker.tint}>
+                  <h3 class="font-display text-[1.35rem] font-bold leading-tight">{sticker.name}</h3>
+                  <p class="mt-1.5 leading-snug text-muted">{sticker.text}</p>
+                  <p class="mt-3 flex flex-wrap gap-2">
+                    <span class="hp-chip pit-chip">
+                      <span class="pit-dot" aria-hidden="true" />
+                      {sticker.chip}
+                    </span>
+                    {sticker.secret && <span class="hp-chip pit-chip">Secret in the app</span>}
+                  </p>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Where motion is welcome the stickers wait out of sight until they can fall in. If the behaviour
+     never arrives they come back as the still pile. -->
+<script is:inline>
+  (function () {
+    var pit = document.querySelector("[data-pit]");
+    if (!pit || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    pit.setAttribute("data-pit-state", "pending");
+    setTimeout(function () {
+      if (pit.getAttribute("data-pit-state") === "pending" && !pit.hasAttribute("data-pit-boot")) pit.removeAttribute("data-pit-state");
+    }, 5000);
+  })();
+</script>
+
+<script>
+  import { initPit } from "@/behaviours/pit";
+  const pit = document.querySelector<HTMLElement>("[data-pit]");
+  if (pit) initPit(pit);
+</script>
+
+<style is:global>
+  /* Room on the right of the heading for Pourie, who stands on the tray's rim. */
+  .pit-act {
+    --pourie: clamp(104px, 15vw, 204px);
+  }
+  .pit-controls {
+    min-height: 44px;
+    padding-right: calc(var(--pourie) + 16px);
+  }
+  .pit-pourie {
+    position: absolute;
+    z-index: 3;
+    right: clamp(10px, 4%, 64px);
+    bottom: calc(100% - 0.045 * var(--pourie));
+    width: var(--pourie);
+    pointer-events: none;
+  }
+
+  .pit-frame {
+    border-radius: var(--radius-hero);
+  }
+  .pit-field {
+    container-type: inline-size;
+    position: relative;
+    height: clamp(580px, 80svh, 760px);
+    overflow: clip;
+    border-radius: calc(var(--radius-hero) - 4px);
+  }
+
+  /* The still pile: rows that build up from the floor, each sticker leaning a little into the next. */
+  .pit-pile {
+    --d: clamp(56px, calc(39px + 5.45cqw), 116px);
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    padding: calc(var(--d) * 0.3) calc(var(--d) * 0.2) calc(var(--d) * 0.22);
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap-reverse;
+    align-content: flex-start;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .pit-item {
+    margin: calc(var(--d) * -0.07) calc(var(--d) * -0.045);
+  }
+  .pit-sticker {
+    position: relative;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+    transform: translateY(calc(var(--d) * var(--lift) * -1)) rotate(var(--lean));
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .pit-sticker img,
+  .pit-sticker picture {
+    display: block;
+    pointer-events: none;
+  }
+  .pit-sticker--badge {
+    width: var(--d);
+    height: var(--d);
+    border-radius: 50%;
+    border: 3px solid var(--outline);
+    background: color-mix(in oklab, var(--tint) var(--tint-mix, 26%), var(--surface));
+  }
+  .pit-sticker--badge img {
+    width: calc(var(--d) * 0.64);
+    height: calc(var(--d) * 0.64);
+    object-fit: contain;
+  }
+  .pit-sticker--drink {
+    height: calc(var(--d) * 1.2);
+    width: calc(var(--d) * 1.2 * var(--ratio));
+    border-radius: 22%;
+  }
+  .pit-sticker--drink img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .pit-sticker:focus-visible {
+    z-index: 2;
+  }
+  .pit-sticker--badge:focus-visible {
+    border-radius: 50%;
+  }
+  .pit-sticker:hover,
+  .pit-sticker[aria-expanded="true"] {
+    z-index: 1;
+  }
+
+  /* One colour per kind of badge, as tints of the app's roles. */
+  [data-tint="pacing"] {
+    --tint: var(--brand);
+  }
+  [data-tint="weekly"] {
+    --tint: var(--success);
+  }
+  [data-tint="mornings"] {
+    --tint: var(--water);
+  }
+  [data-tint="bounce"] {
+    --tint: var(--over);
+  }
+  [data-tint="social"] {
+    --tint: var(--kudos);
+  }
+  [data-tint="seasonal"] {
+    --tint: var(--ink);
+    --tint-mix: 14%;
+  }
+  [data-tint="drink"] {
+    --tint: var(--muted);
+  }
+
+  /* Waiting to fall in. */
+  [data-pit-state="pending"] .pit-sticker {
+    visibility: hidden;
+  }
+
+  /* Live: every sticker is placed by a transform from the tray's top left corner. */
+  [data-pit-state="live"] .pit-pile {
+    display: block;
+    padding: 0;
+  }
+  [data-pit-state="live"] .pit-item {
+    margin: 0;
+  }
+  [data-pit-state="live"] .pit-sticker {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translate3d(-999px, -999px, 0);
+    cursor: grab;
+  }
+  .pit-pile.is-running .pit-sticker {
+    will-change: transform;
+  }
+  [data-pit-state="live"] .pit-sticker.is-held {
+    cursor: grabbing;
+    z-index: 3;
+  }
+
+  /* The card a sticker opens. A popover where the browser has them, a plain positioned card where not. */
+  .pit-card {
+    width: min(300px, calc(100vw - 32px));
+    padding: 16px 18px 18px;
+    border: 3px solid var(--outline);
+    border-radius: var(--radius-card);
+    background: var(--surface);
+    color: var(--ink);
+    box-shadow: 0 6px 0 var(--outline-edge);
+    overflow: visible;
+  }
+  .pit-card[data-place] {
+    position: absolute;
+    inset: auto;
+    margin: 0;
+    left: var(--x);
+    top: var(--y);
+  }
+  .pit-card[data-place="above"] {
+    translate: -50% calc(-100% - 12px);
+    transform-origin: 50% 100%;
+  }
+  .pit-card[data-place="below"] {
+    translate: -50% 12px;
+    transform-origin: 50% 0;
+  }
+  .pit-card::backdrop {
+    background: none;
+  }
+  .pit-chip {
+    padding: 6px 10px;
+    font-size: 0.82rem;
+    background: var(--raised);
+  }
+  .pit-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--tint);
+  }
+  @supports not selector(:popover-open) {
+    .pit-card:not(.is-open) {
+      display: none;
+    }
+    .pit-card {
+      z-index: 40;
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .pit-card {
+      transition:
+        opacity 120ms ease-out,
+        scale 240ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @starting-style {
+      .pit-card:popover-open {
+        opacity: 0;
+        scale: 0.86;
+      }
+    }
+  }
+</style>
