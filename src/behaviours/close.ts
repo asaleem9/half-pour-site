@@ -41,7 +41,6 @@ function setup(section: HTMLElement) {
             .add(() => {
               rig.wave();
               window.dispatchEvent(new CustomEvent("hp:sound", { detail: { name: "fanfare" } }));
-              window.dispatchEvent(new CustomEvent("hp:burst", { detail: "burst-cheer" }));
             }, 0.25)
             .fromTo(split.chars, { opacity: 0, y: 60, rotation: () => gsap.utils.random(-18, 18) }, { opacity: 1, y: 0, rotation: 0, duration: 0.55, stagger: 0.045, ease: "back.out(1.6)" }, 0.3)
             .fromTo(line, { opacity: 0, scaleX: 0.2, transformOrigin: "50% 50%" }, { opacity: 1, scaleX: 1, duration: 0.55 }, 0.85)

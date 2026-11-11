@@ -1,11 +1,13 @@
 ---
+import AlphaBurst from "@/components/media/AlphaBurst.astro";
 /**
  * Act 6. The launch film: a poster with a play button, and a dialog that plays it with sound. Any element
- * with data-open-film (the hero has one) opens the same dialog. behaviours/film.ts runs it.
+ * with data-open-film (the hero has one) opens the same dialog. behaviours/film.ts runs it. When the
+ * poster scrolls into view Pourie pops up from behind it, cheers and ducks back down.
  */
 ---
 
-<section id="film" class="film relative overflow-clip bg-night text-cream" aria-labelledby="film-title">
+<section id="film" class="film relative z-[1] overflow-x-clip bg-night text-cream" aria-labelledby="film-title">
   <div class="mx-auto grid max-w-[1400px] items-center gap-12 px-5 py-[clamp(5rem,12vw,9rem)] sm:px-8 md:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)]">
     <div>
       <h2 id="film-title" class="text-display">Watch the film.</h2>
@@ -16,7 +18,8 @@
       </button>
     </div>
 
-    <button type="button" class="film-poster group relative mx-auto block w-[min(72vw,340px)] cursor-pointer appearance-none border-0 bg-transparent p-0" data-open-film aria-label="Play the film">
+    <button type="button" class="film-poster group relative isolate mx-auto block w-[min(72vw,340px)] cursor-pointer appearance-none border-0 bg-transparent p-0" data-open-film data-film-poster aria-label="Play the film">
+      <AlphaBurst name="burst-cheer" class="film-burst absolute left-1/2 h-auto" />
       <img src="/media/film-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async" class="film-frame block w-full" />
       <span class="film-play absolute left-1/2 top-1/2 grid size-24 place-items-center rounded-full bg-amber text-indigo" aria-hidden="true">
         <svg viewBox="0 0 24 24" class="ml-1 size-11" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"></path></svg>
@@ -37,6 +40,13 @@
 </dialog>
 
 <style>
+  /* Behind the poster, its bottom edge just under the poster's top, so Pourie rises from behind it. */
+  .film-poster :global(.film-burst) {
+    z-index: -1;
+    bottom: calc(100% - 26px);
+    width: 150%;
+    transform: translateX(-50%);
+  }
   .film-frame {
     border-radius: 28px;
     border: 5px solid #fff6e5;

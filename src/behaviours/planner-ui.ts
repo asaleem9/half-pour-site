@@ -1,6 +1,7 @@
 /** Act 4: draws lib/planner's demo night and lets Pourie react to it. */
 import { gsap, reducedMotion, watchVisible, whenNear } from "@/behaviours/scroll";
 import { createRig, followPointer } from "@/behaviours/rig";
+import { warmBurst } from "@/behaviours/bursts";
 import {
   initialNight,
   reduce,
@@ -239,7 +240,10 @@ function setup(section: HTMLElement) {
       pop(capEl);
     });
   }
-  q("[data-start]").addEventListener("click", () => dispatch({ type: "start" }));
+  q("[data-start]").addEventListener("click", () => {
+    dispatch({ type: "start" });
+    warmBurst("burst-badge");
+  });
   drinkButton.addEventListener("click", () => dispatch({ type: "drink" }));
   q("[data-water]").addEventListener("click", () => dispatch({ type: "water" }));
   q("[data-wait]").addEventListener("click", () => {

@@ -8,6 +8,8 @@ import HfPlayer from "@/components/media/HfPlayer.astro";
 const loops = [
   {
     name: "loop-lock-screen",
+    ground: "#15122E",
+    dark: true,
     title: "Log it without unlocking.",
     body: "One tap from the Live Activity on your Lock Screen, a Home Screen widget or Control Center.",
     label: "Animation: a drink is logged with one tap on a Lock Screen card, then a water.",
@@ -16,6 +18,8 @@ const loops = [
   },
   {
     name: "loop-water-round",
+    ground: "#221E45",
+    dark: true,
     title: "Water rounds.",
     body: "The pace ring fills, the app says water, and the score remembers.",
     label: "Animation: a pace ring fills and turns into a water round while Pourie sips water.",
@@ -24,6 +28,8 @@ const loops = [
   },
   {
     name: "loop-nothing-resets",
+    ground: "#FFF6E5",
+    dark: false,
     title: "Weeks that add up.",
     body: "Streaks are weeks, with a shield for the one that gets away. Nothing resets.",
     label: "Animation: six weekly tokens; one tips over, a shield covers it, and the count stays at six.",
@@ -32,6 +38,8 @@ const loops = [
   },
   {
     name: "loop-kudos",
+    ground: "#FFB02E",
+    dark: false,
     title: "A crew that only sees the good stuff.",
     body: "Night Scores, badges and dry nights. Never how many you had. Kudos only: no comments, no leaderboards.",
     label: "Animation: three Pouries pass heart stickers to each other.",
@@ -49,11 +57,14 @@ const guides = ["One an hour", "Rounds without the pressure", "Saying no without
   <div class="mt-[clamp(2.5rem,6vw,4.5rem)] grid gap-5 lg:grid-cols-12">
     {
       loops.map((loop) => (
-        <article class:list={["bento-tile hp-card overflow-hidden p-0", loop.span, loop.wide && "bento-wide"]}>
+        <article
+          class:list={["bento-tile bento-poster sticker overflow-hidden rounded-(--radius-card)", loop.span, loop.wide && "bento-wide", loop.dark ? "text-cream" : "text-indigo"]}
+          style={`background:${loop.ground}`}
+        >
           <HfPlayer name={loop.name} label={loop.label} class="bento-media" />
           <div class="p-6 sm:p-8">
             <h3 class="text-title">{loop.title}</h3>
-            <p class="mt-3 max-w-[38ch] text-lede text-muted">{loop.body}</p>
+            <p class="mt-3 max-w-[38ch] text-lede font-semibold opacity-80">{loop.body}</p>
           </div>
         </article>
       ))
@@ -91,7 +102,10 @@ const guides = ["One an hour", "Rounds without the pressure", "Saying no without
   .bento-tile :global(.bento-media) {
     width: 100%;
     aspect-ratio: 1;
-    border-bottom: 2px solid var(--line);
+  }
+  /* A poster tile ends on its words, so a tall row never leaves a bare band under them. */
+  .bento-poster {
+    justify-content: space-between;
   }
   @media (min-width: 720px) {
     .bento-wide {
@@ -99,10 +113,8 @@ const guides = ["One an hour", "Rounds without the pressure", "Saying no without
       align-items: center;
     }
     .bento-wide :global(.bento-media) {
-      width: 50%;
+      width: 54%;
       flex: none;
-      border-bottom: 0;
-      border-right: 2px solid var(--line);
     }
   }
   .bento-shot {

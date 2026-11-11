@@ -5,6 +5,7 @@
  * draws them. Without scripting the card explains the idea in words.
  */
 import Pourie from "@/components/rig/Pourie.astro";
+import AlphaBurst from "@/components/media/AlphaBurst.astro";
 import { WEIGHTS } from "@/lib/planner/planner";
 
 const rows = [
@@ -35,6 +36,7 @@ const rows = [
 
     <!-- The card: three states, one visible at a time. -->
     <div class="planner-card sticker relative rounded-(--radius-hero) bg-surface p-5 sm:p-6" data-planner-card data-phase="planning">
+      <AlphaBurst name="burst-badge" class="planner-burst absolute left-1/2 top-0 z-10 h-auto" />
       <noscript>
         <p class="font-semibold">This part is interactive and needs JavaScript. In short: you pick a number for the night, log each drink in one tap, and closing the tab gives the night a score out of 100.</p>
       </noscript>
@@ -134,6 +136,12 @@ const rows = [
 </section>
 
 <style>
+  /* The badge burst: a stamped receipt and confetti, centred a little above the card's top edge. */
+  .planner-card :global(.planner-burst) {
+    width: min(150%, 94vw);
+    transform: translate(-50%, -68%);
+  }
+
   .planner-numeral {
     font-family: var(--font-display);
     font-weight: 700;
