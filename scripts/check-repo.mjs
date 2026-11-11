@@ -15,6 +15,8 @@ const textTypes = new Set([".astro", ".ts", ".js", ".mjs", ".css", ".html", ".md
 
 // Words Half Pour never says, in copy or as a joke. Matched as whole words.
 const voice = ["sober", "sobriety", "relapse", "relapsed", "alcoholic", "alcoholics", "addict", "day 1", "day one", "you failed", "bac"];
+// The one exception: a badge in the app is really called this, and the site shows badges by their real names.
+const allowed = [/sober-ish october/gi];
 // Names that must not appear anywhere in the repo.
 const stray = [["cl", "aude"], ["anth", "ropic"]].map((parts) => parts.join(""));
 
@@ -40,9 +42,10 @@ function walk(dir) {
     }
     // Voice applies to what visitors read: pages, components, copy and built HTML. The app's help
     // resources name a condition in the standard disclaimer, which is allowed.
-    const isCopy = mode === "built" ? extname(name) === ".html" : /^src\/(pages|components|lib)\//.test(rel);
+    const isCopy = mode === "built" ? extname(name) === ".html" : /^src\/(pages|components|lib)\//.test(rel) && !rel.startsWith(join("src", "lib", "generated"));
     if (isCopy && !self) {
-      const visible = extname(name) === ".html" ? text.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>|<[^>]+>/g, " ") : text;
+      let visible = extname(name) === ".html" ? text.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>|<[^>]+>/g, " ") : text;
+      for (const phrase of allowed) visible = visible.replace(phrase, " ");
       for (const word of voice) if (wordPattern(word).test(visible)) problems.push(`voice: "${word}" in ${rel}`);
     }
   }
