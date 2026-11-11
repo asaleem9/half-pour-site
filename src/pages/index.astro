@@ -1,6 +1,6 @@
 ---
 import Base from "@/layouts/Base.astro";
-import AppStoreBadge from "@/components/AppStoreBadge.astro";
+import Hero from "@/components/acts/Hero.astro";
 
 const points = [
   { title: "Pick tonight's number before you go out", body: "One page: your number, a pace, a last call and a ride home." },
@@ -13,16 +13,7 @@ const points = [
 ---
 
 <Base>
-  <section class="relative mx-auto flex min-h-svh max-w-[1400px] flex-col justify-center px-5 pb-16 pt-28 sm:px-8">
-    <h1 class="text-hero">Cut back,<br />not out.</h1>
-    <p class="mt-8 max-w-[34ch] text-lede text-muted">
-      Half Pour is for people who want lighter mornings without giving up the night. Plan it, log each drink in one tap, and wake up to an
-      honest, kind recap.
-    </p>
-    <div class="mt-10 flex flex-wrap items-center gap-4">
-      <AppStoreBadge size="hero" />
-    </div>
-  </section>
+  <Hero />
 
   <section class="mx-auto max-w-[1400px] px-5 pb-28 sm:px-8" aria-labelledby="what">
     <h2 id="what" class="text-display">What it does</h2>

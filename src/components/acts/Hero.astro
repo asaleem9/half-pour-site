@@ -1,0 +1,132 @@
+---
+/**
+ * Act 1. The viewport is the glass: cream above, amber below, exactly half full. The headline straddles
+ * the waterline and Pourie rides the surface. behaviours/hero.ts brings it to life.
+ */
+import AppStoreBadge from "@/components/AppStoreBadge.astro";
+import Pourie from "@/components/rig/Pourie.astro";
+---
+
+<section id="top" class="hero relative isolate h-svh min-h-[620px] overflow-clip" data-hero>
+  <!-- The liquid: a plain block, with a canvas band drawing the moving surface on top of its upper edge. -->
+  <div class="hero-liquid absolute inset-x-0 bottom-0 bg-brand" data-liquid-body aria-hidden="true">
+    <span class="hero-bubble" style="--x:8%;--s:22px;--d:9s;--o:-2s"></span>
+    <span class="hero-bubble" style="--x:19%;--s:12px;--d:7s;--o:-5s"></span>
+    <span class="hero-bubble" style="--x:33%;--s:16px;--d:11s;--o:-1s"></span>
+    <span class="hero-bubble" style="--x:47%;--s:10px;--d:8s;--o:-6s"></span>
+    <span class="hero-bubble" style="--x:61%;--s:20px;--d:10s;--o:-3s"></span>
+    <span class="hero-bubble" style="--x:74%;--s:13px;--d:7.5s;--o:-4.5s"></span>
+    <span class="hero-bubble" style="--x:88%;--s:17px;--d:9.5s;--o:-7s"></span>
+  </div>
+  <canvas class="hero-surface absolute inset-x-0 w-full" data-liquid-canvas aria-hidden="true"></canvas>
+
+  <div class="relative mx-auto grid h-full max-w-[1400px] grid-rows-[1fr_auto_1fr] px-5 sm:px-8">
+    <div class="flex items-end pb-5 md:pb-8">
+      <p class="hp-chip border-outline bg-surface text-ink" data-hero-eyebrow>For iPhone · 18+</p>
+    </div>
+
+    <!-- Two copies of the headline: the real one in the page's ink, and one in the on-amber colour that is
+         clipped to the liquid, so the letters change colour exactly where the surface crosses them. -->
+    <div class="hero-head relative w-fit" data-hero-head>
+      <h1 class="text-hero text-ink">Cut back,<br />not out.</h1>
+      <div class="hero-under text-hero pointer-events-none absolute inset-0 font-display font-bold tracking-[0.005em] text-indigo" aria-hidden="true" data-hero-under>
+        Cut back,<br />not out.
+      </div>
+    </div>
+
+    <div class="flex max-w-[30rem] flex-col gap-6 pt-5 md:gap-7 md:pt-8">
+      <p class="text-lede font-semibold text-indigo">
+        Lighter mornings without giving up the night. Plan it, log each drink in one tap, and wake up to an honest, kind recap.
+      </p>
+      <div class="flex flex-wrap items-center gap-3 md:gap-4">
+        <AppStoreBadge size="hero" class="hero-badge" />
+        <button type="button" class="hp-btn hp-btn--secondary hp-btn--hero hero-film" data-open-film data-sound="press">
+          <svg viewBox="0 0 24 24" class="size-6" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"></path></svg>
+          Watch the film
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pourie rides the surface. On wide screens its own liquid lines up with the page's. -->
+  <button type="button" class="hero-pourie absolute cursor-pointer appearance-none border-0 bg-transparent p-0" data-hero-pourie aria-label="Pourie. Tap to make a splash.">
+    <Pourie id="hero-pourie" class="pourie-rig--edge w-full" />
+  </button>
+
+  <button type="button" class="hp-chip absolute bottom-4 right-4 hidden cursor-pointer border-outline bg-surface text-ink" data-tilt-chip>Tilt to play</button>
+</section>
+
+<style>
+  .hero {
+    --band: 220px;
+    --rig-h: min(58svh, 600px);
+    /* Where on Pourie the waterline sits: 0.4 is the top of its own liquid. */
+    --rig-anchor: 0.4;
+  }
+  .hero-liquid {
+    top: calc(50% + var(--band) / 2 - 1px);
+  }
+  .hero-surface {
+    top: calc(50% - var(--band) / 2);
+    height: var(--band);
+  }
+  .hero-pourie {
+    right: max(4vw, calc((100vw - 1400px) / 2 + 2rem));
+    top: calc(50% - var(--rig-h) * var(--rig-anchor));
+    width: calc(var(--rig-h) * 640 / 720);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .hero-under {
+    /* Until the script runs: everything below the middle of the block is under the liquid. */
+    clip-path: inset(50% 0 -20% 0);
+  }
+  .hero-bubble {
+    position: absolute;
+    left: var(--x);
+    bottom: -40px;
+    width: var(--s);
+    height: var(--s);
+    border-radius: 50%;
+    border: 3px solid var(--brand-edge);
+    opacity: 0.45;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-bubble {
+      animation: hero-rise var(--d) linear var(--o) infinite;
+    }
+  }
+  @keyframes hero-rise {
+    from {
+      transform: translateY(0);
+      opacity: 0;
+    }
+    12% {
+      opacity: 0.45;
+    }
+    88% {
+      opacity: 0.45;
+    }
+    to {
+      transform: translateY(-46svh);
+      opacity: 0;
+    }
+  }
+  @media (max-width: 767px) {
+    .hero {
+      --band: 150px;
+      /* On phones Pourie stands on the surface, beside the first line of the headline. */
+      --rig-h: 38vw;
+      --rig-anchor: 0.965;
+    }
+    .hero-pourie {
+      right: -1vw;
+    }
+    .hero-head :is(h1, [data-hero-under]) {
+      font-size: 14vw;
+    }
+  }
+</style>
+
+<script>
+  import "@/behaviours/hero";
+</script>

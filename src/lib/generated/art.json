@@ -827,6 +827,15 @@
     ],
     "group": "web-pourie"
   },
+  "web-jump": {
+    "width": 782,
+    "height": 789,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "web-pourie"
+  },
   "web-keys": {
     "width": 861,
     "height": 863,
@@ -863,6 +872,15 @@
     ],
     "group": "web-pourie"
   },
+  "web-peek": {
+    "width": 571,
+    "height": 937,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "web-pourie"
+  },
   "web-phone": {
     "width": 560,
     "height": 912,
@@ -880,6 +898,114 @@
       960
     ],
     "group": "web-pourie"
+  },
+  "web-prop-car": {
+    "width": 847,
+    "height": 722,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "web-props"
+  },
+  "web-prop-clipboard": {
+    "width": 609,
+    "height": 823,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "web-props"
+  },
+  "web-prop-door": {
+    "width": 630,
+    "height": 964,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "web-props"
+  },
+  "web-prop-keys": {
+    "width": 736,
+    "height": 918,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "web-props"
+  },
+  "web-prop-lamp": {
+    "width": 300,
+    "height": 933,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "web-props"
+  },
+  "web-prop-lime": {
+    "width": 951,
+    "height": 523,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "web-props"
+  },
+  "web-prop-mug": {
+    "width": 614,
+    "height": 799,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "web-props"
+  },
+  "web-prop-phone": {
+    "width": 517,
+    "height": 870,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "web-props"
+  },
+  "web-prop-receipt": {
+    "width": 584,
+    "height": 919,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "web-props"
+  },
+  "web-prop-shield": {
+    "width": 787,
+    "height": 862,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "web-props"
+  },
+  "web-prop-trophy": {
+    "width": 732,
+    "height": 659,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "web-props"
+  },
+  "web-prop-water": {
+    "width": 496,
+    "height": 948,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "web-props"
   },
   "web-sheet-cheer-1": {
     "width": 532,
@@ -1001,6 +1127,15 @@
   "web-shrug": {
     "width": 852,
     "height": 869,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "web-pourie"
+  },
+  "web-sign": {
+    "width": 676,
+    "height": 946,
     "sizes": [
       480,
       960
