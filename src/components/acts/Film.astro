@@ -1,0 +1,129 @@
+---
+/**
+ * Act 6. The launch film: a poster with a play button, and a dialog that plays it with sound. Any element
+ * with data-open-film (the hero has one) opens the same dialog. behaviours/film.ts runs it.
+ */
+---
+
+<section id="film" class="film relative overflow-clip bg-night text-cream" aria-labelledby="film-title">
+  <div class="mx-auto grid max-w-[1400px] items-center gap-12 px-5 py-[clamp(5rem,12vw,9rem)] sm:px-8 md:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)]">
+    <div>
+      <h2 id="film-title" class="text-display">Watch the film.</h2>
+      <p class="mt-6 max-w-[30ch] text-lede text-[#ADA6CF]">One Saturday morning, told backwards. Forty-nine seconds, sound on.</p>
+      <button type="button" class="hp-btn hp-btn--hero mt-9" data-open-film data-sound="press">
+        <svg viewBox="0 0 24 24" class="size-7" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"></path></svg>
+        Play the film
+      </button>
+    </div>
+
+    <button type="button" class="film-poster group relative mx-auto block w-[min(72vw,340px)] cursor-pointer appearance-none border-0 bg-transparent p-0" data-open-film aria-label="Play the film">
+      <img src="/media/film-poster.webp" alt="" width="720" height="1280" loading="lazy" decoding="async" class="film-frame block w-full" />
+      <span class="film-play absolute left-1/2 top-1/2 grid size-24 place-items-center rounded-full bg-amber text-indigo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" class="ml-1 size-11" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"></path></svg>
+      </span>
+    </button>
+  </div>
+</section>
+
+<dialog class="film-dialog" data-film-dialog aria-label="The Half Pour film">
+  <div class="film-dialog-inner">
+    <video controls playsinline preload="none" poster="/media/film-poster.webp" data-film-video>
+      <source src="/media/film.mp4" type="video/mp4" />
+    </video>
+    <form method="dialog" class="film-close">
+      <button class="hp-btn hp-btn--secondary hp-btn--compact" aria-label="Close the film">Close</button>
+    </form>
+  </div>
+</dialog>
+
+<style>
+  .film-frame {
+    border-radius: 28px;
+    border: 5px solid #fff6e5;
+    box-shadow: 0 12px 0 #3b3572;
+    transform: rotate(3deg);
+    transition: transform 420ms var(--ease-snappy);
+  }
+  .film-poster:hover .film-frame,
+  .film-poster:focus-visible .film-frame {
+    transform: rotate(0deg) scale(1.02);
+  }
+  .film-play {
+    margin: -3rem 0 0 -3rem;
+    border: 5px solid #1f1a3d;
+    box-shadow: 0 8px 0 #c97700;
+    transition: transform 320ms var(--ease-snappy);
+  }
+  .film-poster:hover .film-play {
+    transform: scale(1.1);
+  }
+  .film-dialog {
+    margin: auto;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    max-width: none;
+    max-height: none;
+    overflow: visible;
+    opacity: 0;
+    transform: scale(0.92);
+    transition:
+      opacity 260ms ease-out,
+      transform 420ms var(--ease-snappy),
+      overlay 260ms allow-discrete,
+      display 260ms allow-discrete;
+  }
+  .film-dialog[open] {
+    opacity: 1;
+    transform: scale(1);
+  }
+  @starting-style {
+    .film-dialog[open] {
+      opacity: 0;
+      transform: scale(0.92);
+    }
+  }
+  .film-dialog::backdrop {
+    background: rgb(21 18 46 / 0);
+    transition:
+      background 260ms ease-out,
+      overlay 260ms allow-discrete,
+      display 260ms allow-discrete;
+  }
+  .film-dialog[open]::backdrop {
+    background: rgb(21 18 46 / 0.88);
+  }
+  @starting-style {
+    .film-dialog[open]::backdrop {
+      background: rgb(21 18 46 / 0);
+    }
+  }
+  .film-dialog-inner {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    gap: 0.9rem;
+  }
+  .film-dialog video {
+    display: block;
+    height: min(82svh, 860px);
+    width: auto;
+    max-width: 92vw;
+    aspect-ratio: 9 / 16;
+    border-radius: 24px;
+    border: 5px solid #fff6e5;
+    background: #15122e;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .film-dialog,
+    .film-dialog::backdrop,
+    .film-frame,
+    .film-play {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  import "@/behaviours/film";
+</script>

@@ -1,0 +1,181 @@
+---
+/**
+ * Act 4. A working miniature of a night in the app: pick a number, log drinks and waters against a
+ * sped-up clock, close the tab and get a score. The rules live in lib/planner; behaviours/planner-ui.ts
+ * draws them. Without scripting the card explains the idea in words.
+ */
+import Pourie from "@/components/rig/Pourie.astro";
+import { WEIGHTS } from "@/lib/planner/planner";
+
+const rows = [
+  { key: "showedUp", label: "Showed up and logged" },
+  { key: "pacing", label: "Pacing" },
+  { key: "water", label: "Water" },
+  { key: "cap", label: "Your number" },
+  { key: "lastCall", label: "Closed the tab yourself" },
+  { key: "planAhead", label: "Planned ahead" },
+  { key: "liveLogging", label: "Logged as you went" },
+] as const;
+---
+
+<section id="try" class="relative mx-auto max-w-[1400px] px-5 py-[clamp(5rem,12vw,10rem)] sm:px-8" data-planner aria-labelledby="try-title">
+  <div class="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,440px)_minmax(0,0.7fr)] lg:gap-10">
+    <div>
+      <h2 id="try-title" class="text-display">Try a night.</h2>
+      <p class="mt-6 max-w-[34ch] text-lede text-muted">
+        Pick your number, then play it out. An hour takes six seconds here, so you can feel what pacing does to the score.
+      </p>
+      <ul class="mt-8 grid max-w-[36ch] gap-3 font-semibold">
+        <li class="flex items-start gap-3"><span class="mt-1 size-4 shrink-0 rounded-full bg-brand" aria-hidden="true"></span>Wait for the ring before the next one.</li>
+        <li class="flex items-start gap-3"><span class="mt-1 size-4 shrink-0 rounded-full bg-water" aria-hidden="true"></span>A water round between drinks keeps the water points.</li>
+        <li class="flex items-start gap-3"><span class="mt-1 size-4 shrink-0 rounded-full bg-over" aria-hidden="true"></span>Past your number turns lilac. Never red.</li>
+      </ul>
+      <p class="mt-8 max-w-[40ch] text-sm text-muted">A taste of the Night Score. The real one runs on your actual night, in the app.</p>
+    </div>
+
+    <!-- The card: three states, one visible at a time. -->
+    <div class="planner-card sticker relative rounded-(--radius-hero) bg-surface p-5 sm:p-6" data-planner-card data-phase="planning">
+      <noscript>
+        <p class="font-semibold">This part is interactive and needs JavaScript. In short: you pick a number for the night, log each drink in one tap, and closing the tab gives the night a score out of 100.</p>
+      </noscript>
+
+      <div class="planner-phase" data-phase-view="planning">
+        <p class="font-display text-lg font-semibold text-muted">Tonight's plan</p>
+        <p class="mt-4 text-center font-display font-semibold">Your number tonight</p>
+        <div class="mt-3 flex items-center justify-center gap-5">
+          <button type="button" class="hp-btn hp-btn--secondary size-14 min-h-0 p-0 text-3xl" data-cap-step="-1" aria-label="One fewer" data-sound="tick">−</button>
+          <output class="planner-numeral w-[1.3em] text-center" data-cap aria-live="polite">4</output>
+          <button type="button" class="hp-btn hp-btn--secondary size-14 min-h-0 p-0 text-3xl" data-cap-step="1" aria-label="One more" data-sound="tick">+</button>
+        </div>
+        <div class="mt-5 flex justify-center gap-2" data-cap-tokens aria-hidden="true"></div>
+        <button type="button" class="hp-btn hp-btn--hero mt-7 w-full" data-start data-sound="press">Start the night</button>
+      </div>
+
+      <div class="planner-phase" data-phase-view="live" hidden>
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <p class="font-display text-lg font-semibold text-muted">Tonight</p>
+            <p class="mt-1 flex items-baseline gap-2">
+              <span class="planner-numeral" data-count>0</span>
+              <span class="font-display text-xl font-semibold text-muted">of <span data-cap-echo>4</span></span>
+            </p>
+          </div>
+          <!-- The pace ring: full means the next drink is on pace. -->
+          <div class="relative grid size-24 place-items-center" role="img" data-pace aria-label="Pace">
+            <svg viewBox="0 0 100 100" class="absolute inset-0 size-full -rotate-90">
+              <circle cx="50" cy="50" r="41" fill="none" stroke="var(--line)" stroke-width="12"></circle>
+              <circle cx="50" cy="50" r="41" fill="none" stroke="var(--brand)" stroke-width="12" stroke-linecap="round" stroke-dasharray="257.6" stroke-dashoffset="0" data-pace-ring></circle>
+            </svg>
+            <span class="relative text-center font-display text-sm font-bold leading-tight" data-pace-text>Good<br />to go</span>
+          </div>
+        </div>
+        <div class="mt-4 flex flex-wrap gap-2" data-tokens aria-hidden="true"></div>
+        <p class="mt-3 min-h-6 font-semibold text-muted" data-status aria-live="polite">The night is on. Log the first one when it arrives.</p>
+
+        <button type="button" class="hp-btn hp-btn--hero mt-4 w-full justify-start gap-4 text-left" data-drink>
+          <span class="text-4xl leading-none" aria-hidden="true">+</span>
+          <span class="flex flex-col leading-tight"><span>Beer</span><span class="text-base font-semibold opacity-80" data-drink-sub>Tap to log</span></span>
+        </button>
+        <div class="mt-3 grid grid-cols-2 gap-3">
+          <button type="button" class="hp-btn hp-btn--water" data-water>Water round</button>
+          <button type="button" class="hp-btn hp-btn--secondary" data-wait data-sound="tick">Wait an hour</button>
+        </div>
+        <button type="button" class="hp-btn hp-btn--ink mt-3 w-full" data-close data-sound="press">Close the tab</button>
+      </div>
+
+      <div class="planner-phase" data-phase-view="closed" hidden>
+        <p class="font-display text-lg font-semibold text-muted">Tab closed</p>
+        <div class="mt-3 flex items-center gap-5">
+          <div class="relative grid size-32 shrink-0 place-items-center" role="img" data-score-label aria-label="Night Score">
+            <svg viewBox="0 0 100 100" class="absolute inset-0 size-full -rotate-90">
+              <circle cx="50" cy="50" r="41" fill="none" stroke="var(--line)" stroke-width="12"></circle>
+              <circle cx="50" cy="50" r="41" fill="none" stroke="var(--success)" stroke-width="12" stroke-linecap="round" stroke-dasharray="257.6" stroke-dashoffset="257.6" data-score-ring></circle>
+            </svg>
+            <span class="planner-numeral relative text-[3.4rem]" data-score>0</span>
+          </div>
+          <div>
+            <p class="font-display text-2xl font-bold leading-tight" data-verdict>That's a clean night.</p>
+            <p class="mt-1 text-muted" data-verdict-line></p>
+          </div>
+        </div>
+        <ul class="mt-5 grid gap-2.5" data-breakdown>
+          {
+            rows.map((row) => (
+              <li data-row={row.key}>
+                <div class="flex justify-between text-sm font-semibold">
+                  <span>{row.label}</span>
+                  <span class="tabular-nums text-muted">
+                    <span data-row-points>0</span> of {WEIGHTS[row.key]}
+                  </span>
+                </div>
+                <div class="mt-1 h-3 overflow-hidden rounded-full bg-line">
+                  <div class="h-full origin-left rounded-full bg-success" data-row-bar style="transform: scaleX(0)" />
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+        <div class="mt-5 hidden items-center gap-4 rounded-(--radius-card) border-2 border-line bg-raised p-3" data-badge>
+          <img alt="" width="96" height="96" class="size-24 shrink-0" data-badge-art />
+          <div>
+            <p class="font-display text-sm font-semibold text-muted">Badge</p>
+            <p class="font-display text-xl font-bold" data-badge-name></p>
+            <p class="text-sm text-muted" data-badge-blurb></p>
+          </div>
+        </div>
+        <button type="button" class="hp-btn hp-btn--secondary mt-5 w-full" data-again data-sound="press">Play another night</button>
+      </div>
+    </div>
+
+    <div class="planner-pourie mx-auto w-[min(46vw,230px)] lg:w-full lg:max-w-[300px]" aria-hidden="true">
+      <Pourie id="planner-pourie" class="w-full" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .planner-numeral {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 4.6rem;
+    line-height: 0.9;
+    font-variant-numeric: tabular-nums;
+  }
+  .planner-card {
+    min-height: 31rem;
+  }
+  :global(.planner-token) {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 2px solid var(--line);
+    box-shadow: 0 3px 0 var(--line);
+  }
+  :global(.planner-token[data-fill="drink"]) {
+    background: var(--brand);
+    border-color: var(--brand-edge);
+    box-shadow: 0 3px 0 var(--brand-edge);
+  }
+  :global(.planner-token[data-fill="over"]) {
+    background: var(--over);
+    border-color: var(--over-edge);
+    box-shadow: 0 3px 0 var(--over-edge);
+  }
+  :global(.planner-token[data-fill="water"]) {
+    width: 22px;
+    height: 22px;
+    margin-top: 4px;
+    background: var(--water);
+    border-color: var(--water-edge);
+    box-shadow: 0 3px 0 var(--water-edge);
+  }
+  :global([data-planner-card][data-over]) [data-count] {
+    color: var(--over-ink);
+  }
+</style>
+
+<script>
+  import "@/behaviours/planner-ui";
+</script>

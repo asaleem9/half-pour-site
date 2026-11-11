@@ -1,11 +1,22 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "include": [".astro/types.d.ts", "src/**/*"],
-  "exclude": ["dist", "dist.nosync", "hyperframes", "node_modules"],
+  "include": [
+    ".astro/types.d.ts",
+    "src/**/*"
+  ],
+  "exclude": [
+    "dist",
+    "dist.nosync",
+    "hyperframes",
+    "node_modules",
+    "src/**/*.test.ts"
+  ],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": [
+        "src/*"
+      ]
     },
     "verbatimModuleSyntax": true
   }

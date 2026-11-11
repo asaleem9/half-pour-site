@@ -1,0 +1,57 @@
+---
+/**
+ * Act 2. What most trackers say, struck through, and what Half Pour says instead. The lines are real
+ * headings in reading order; behaviours/manifesto.ts draws the strikes and lifts the words as they scroll in.
+ */
+const lines = [
+  { old: "Streak lost", now: "Nothing resets.", note: "Streaks are weeks, with a shield for the one that gets away." },
+  { old: "Red alert", now: "Lilac, never red.", note: "Going over your number costs a few points. It does not cost the night.", lilac: true },
+  { old: "A lecture", now: "An honest, kind recap.", note: "A score for the night and where every point came from." },
+  { old: "All or nothing", now: "Cut back, not out.", note: "Keep the nights out. Lose the rough mornings." },
+];
+---
+
+<section id="how" class="relative mx-auto max-w-[1400px] px-5 py-[clamp(5rem,12vw,10rem)] sm:px-8" data-manifesto aria-labelledby="how-title">
+  <h2 id="how-title" class="max-w-[16ch] text-title text-muted">Most trackers keep score against you. This one is on your side.</h2>
+  <ol class="mt-[clamp(2.5rem,6vw,5rem)] grid gap-[clamp(2.2rem,5vw,4.5rem)]">
+    {
+      lines.map((line) => (
+        <li class="manifesto-line grid items-baseline gap-x-8 gap-y-3 md:grid-cols-[minmax(0,15rem)_minmax(0,1fr)]" data-manifesto-line>
+          <p class="manifesto-old relative w-fit font-display text-2xl font-semibold text-muted md:justify-self-end md:text-3xl" data-manifesto-old>
+            <span class="sr-only">Instead of </span>
+            {line.old}
+            <span class="manifesto-strike" aria-hidden="true" data-manifesto-strike />
+          </p>
+          <div>
+            <h3 class:list={["text-display", line.lilac && "manifesto-lilac"]} data-manifesto-now>
+              {line.now}
+            </h3>
+            <p class="mt-3 max-w-[40ch] text-lede text-muted" data-manifesto-note>
+              {line.note}
+            </p>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</section>
+
+<style>
+  .manifesto-strike {
+    position: absolute;
+    left: -6%;
+    right: -6%;
+    top: 54%;
+    height: 5px;
+    border-radius: 3px;
+    background: var(--ink);
+    transform-origin: left center;
+  }
+  .manifesto-lilac {
+    color: var(--over-ink);
+  }
+</style>
+
+<script>
+  import "@/behaviours/manifesto";
+</script>

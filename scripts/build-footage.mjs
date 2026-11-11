@@ -6,7 +6,7 @@
 // 2. The App Store screenshots in day and night at two widths, for the feature tiles.
 // Sources are read from the app repo (HALFPOUR_APP_DIR, default ../half-pour). Outputs overwrite in place.
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdirSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import sharp from "sharp";
 
@@ -79,4 +79,16 @@ for (const shot of shots) {
     }
   }
 }
+// The launch film, as rendered by the launch-film project, and a poster for it.
+const film = join(appDir, "videos/half-pour-launch/renders/video.mp4");
+if (existsSync(film)) {
+  copyFileSync(film, join(mediaDir, "film.mp4"));
+  const frame = join(mediaDir, "film-poster.png");
+  execFileSync("ffmpeg", ["-v", "error", "-y", "-ss", "9.4", "-i", film, "-frames:v", "1", frame]);
+  await sharp(frame).resize({ width: 720 }).webp({ quality: 82 }).toFile(join(mediaDir, "film-poster.webp"));
+  rmSync(frame);
+} else {
+  console.warn("film: no render found at " + film);
+}
+
 console.log(`footage: rewind.mp4 (${cursor.toFixed(1)} s, ${stops.length} stops), ${shots.length} screenshots in two themes`);
