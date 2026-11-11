@@ -54,14 +54,26 @@ export function initScroll() {
     });
   }
 
-  const refresh = () => ScrollTrigger.refresh();
+  // Fonts arriving, the page finishing loading and the body changing height all want the same thing,
+  // so they share one deferred refresh.
+  let refreshTimer = 0;
+  const refresh = () => {
+    window.clearTimeout(refreshTimer);
+    refreshTimer = window.setTimeout(() => ScrollTrigger.refresh(), 200);
+  };
   document.fonts?.ready.then(refresh);
   window.addEventListener("load", refresh, { once: true });
-  let resizeTimer = 0;
-  new ResizeObserver(() => {
-    window.clearTimeout(resizeTimer);
-    resizeTimer = window.setTimeout(refresh, 150);
-  }).observe(document.body);
+  new ResizeObserver(refresh).observe(document.body);
+}
+
+/** Runs `task` once the page has loaded and the browser has a quiet moment. */
+export function whenIdle(task: () => void) {
+  const run = () => {
+    if ("requestIdleCallback" in window) window.requestIdleCallback(task, { timeout: 1500 });
+    else setTimeout(task, 200);
+  };
+  if (document.readyState === "complete") run();
+  else window.addEventListener("load", run, { once: true });
 }
 
 /** Runs `enter` the first time an element comes near the viewport. */

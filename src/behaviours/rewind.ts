@@ -56,7 +56,7 @@ function formatClock(minutes: number) {
   return `${display}:${String(mins).padStart(2, "0")} ${suffix}`;
 }
 
-if (section && dataEl && !reducedMotion()) {
+function setup(section: HTMLElement, dataEl: HTMLElement) {
   initScroll();
   const data = JSON.parse(dataEl.textContent || "{}") as Data;
   const stage = section.querySelector<HTMLElement>("[data-rewind-stage]")!;
@@ -74,7 +74,6 @@ if (section && dataEl && !reducedMotion()) {
   const scenes = data.stops.map((stop) => section.querySelector<HTMLElement>(`[data-rewind-scene="${stop.name}"]`));
   const dots = data.stops.map((stop) => section.querySelector<HTMLElement>(`[data-rewind-dot="${stop.name}"]`)!);
 
-  section.classList.add("is-live");
   const rig: Rig = createRig(pourieEl.querySelector<SVGSVGElement>("[data-rig]")!);
   rig.setArm("wave", true);
 
@@ -110,7 +109,7 @@ if (section && dataEl && !reducedMotion()) {
         })
         .catch(() => {});
     },
-    "150% 0px",
+    "70% 0px",
   );
 
   let lastClock = "";
@@ -294,4 +293,12 @@ if (section && dataEl && !reducedMotion()) {
     }
   });
   window.addEventListener("hp:theme", () => render(state.p));
+  ScrollTrigger.refresh();
+}
+
+if (section && dataEl && !reducedMotion()) {
+  // The pinned layout is only CSS, so it is in place from the start; the stage itself is built a little
+  // before the visitor reaches it.
+  section.classList.add("is-live");
+  whenNear(section, () => setup(section, dataEl), "120% 0px");
 }

@@ -1,5 +1,5 @@
 /** Act 4: draws lib/planner's demo night and lets Pourie react to it. */
-import { gsap, reducedMotion, watchVisible } from "@/behaviours/scroll";
+import { gsap, reducedMotion, watchVisible, whenNear } from "@/behaviours/scroll";
 import { createRig, followPointer } from "@/behaviours/rig";
 import {
   initialNight,
@@ -16,9 +16,10 @@ import {
   type Night,
 } from "@/lib/planner/planner";
 
-const section = document.querySelector<HTMLElement>("[data-planner]");
+const planner = document.querySelector<HTMLElement>("[data-planner]");
+if (planner) whenNear(planner, () => setup(planner), "80% 0px");
 
-if (section) {
+function setup(section: HTMLElement) {
   const card = section.querySelector<HTMLElement>("[data-planner-card]")!;
   const q = <T extends Element = HTMLElement>(selector: string) => card.querySelector<T>(selector)!;
   const views = Array.from(card.querySelectorAll<HTMLElement>("[data-phase-view]"));

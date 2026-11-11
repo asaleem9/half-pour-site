@@ -1,9 +1,11 @@
 /** Act 2: each line's old phrase is struck as it scrolls in, and the new line rises word by word. */
-import { gsap, ScrollTrigger, initScroll, reducedMotion } from "@/behaviours/scroll";
+import { gsap, ScrollTrigger, initScroll, reducedMotion, whenIdle } from "@/behaviours/scroll";
 
 const section = document.querySelector<HTMLElement>("[data-manifesto]");
 
-if (section && !reducedMotion()) {
+if (section && !reducedMotion()) whenIdle(() => setup(section));
+
+function setup(section: HTMLElement) {
   initScroll();
   import("gsap/SplitText").then(({ SplitText }) => {
     gsap.registerPlugin(SplitText);

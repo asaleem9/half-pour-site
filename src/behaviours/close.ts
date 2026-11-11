@@ -1,10 +1,11 @@
 /** Act 8: the lockup assembles once as it scrolls in, with one burst of confetti, then holds. */
-import { gsap, ScrollTrigger, initScroll, reducedMotion, watchVisible } from "@/behaviours/scroll";
+import { gsap, ScrollTrigger, initScroll, reducedMotion, watchVisible, whenNear } from "@/behaviours/scroll";
 import { createRig, followPointer } from "@/behaviours/rig";
 
-const section = document.querySelector<HTMLElement>("[data-close-act]");
+const closeAct = document.querySelector<HTMLElement>("[data-close-act]");
+if (closeAct) whenNear(closeAct, () => setup(closeAct), "80% 0px");
 
-if (section) {
+function setup(section: HTMLElement) {
   const still = reducedMotion();
   const rig = createRig(section.querySelector<SVGSVGElement>("[data-rig]")!, { idle: false });
   followPointer(rig);
