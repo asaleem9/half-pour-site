@@ -1061,60 +1061,6 @@
     ],
     "group": "web-sheets"
   },
-  "web-sheet-sip-1": {
-    "width": 532,
-    "height": 532,
-    "sizes": [
-      360,
-      720
-    ],
-    "group": "web-sheets"
-  },
-  "web-sheet-sip-2": {
-    "width": 532,
-    "height": 532,
-    "sizes": [
-      360,
-      720
-    ],
-    "group": "web-sheets"
-  },
-  "web-sheet-sip-3": {
-    "width": 532,
-    "height": 532,
-    "sizes": [
-      360,
-      720
-    ],
-    "group": "web-sheets"
-  },
-  "web-sheet-sip-4": {
-    "width": 532,
-    "height": 532,
-    "sizes": [
-      360,
-      720
-    ],
-    "group": "web-sheets"
-  },
-  "web-sheet-sip-5": {
-    "width": 532,
-    "height": 532,
-    "sizes": [
-      360,
-      720
-    ],
-    "group": "web-sheets"
-  },
-  "web-sheet-sip-6": {
-    "width": 532,
-    "height": 532,
-    "sizes": [
-      360,
-      720
-    ],
-    "group": "web-sheets"
-  },
   "web-shield": {
     "width": 658,
     "height": 899,
