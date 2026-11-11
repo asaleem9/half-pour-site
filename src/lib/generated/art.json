@@ -1,0 +1,1019 @@
+{
+  "badge-big-night-small-tab": {
+    "width": 629,
+    "height": 675,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "badge-bounce-back": {
+    "width": 767,
+    "height": 709,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "badge-cash-back": {
+    "width": 757,
+    "height": 778,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "badge-challenge-finisher": {
+    "width": 754,
+    "height": 851,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "badge-clear-head": {
+    "width": 675,
+    "height": 730,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "badge-closed-the-tab": {
+    "width": 683,
+    "height": 878,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "badge-crew-night": {
+    "width": 713,
+    "height": 615,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "badge-designated": {
+    "width": 762,
+    "height": 822,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "badge-dry-ish-january": {
+    "width": 823,
+    "height": 924,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "badge-dry-weekday": {
+    "width": 794,
+    "height": 812,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "badge-early-bird-special": {
+    "width": 698,
+    "height": 878,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "badge-first-rounds-on-me": {
+    "width": 693,
+    "height": 737,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "badge-half-pour": {
+    "width": 642,
+    "height": 710,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "badge-hangover-free-weekend": {
+    "width": 830,
+    "height": 754,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "badge-honest-log": {
+    "width": 783,
+    "height": 647,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "badge-hydro-homie": {
+    "width": 621,
+    "height": 808,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "badge-lid-on": {
+    "width": 624,
+    "height": 701,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "badge-long-weekend-survivor": {
+    "width": 635,
+    "height": 825,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "badge-pacer": {
+    "width": 668,
+    "height": 772,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "badge-plan-ahead": {
+    "width": 834,
+    "height": 834,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "badge-reflected": {
+    "width": 688,
+    "height": 642,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "badge-slow-start": {
+    "width": 893,
+    "height": 551,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "badge-sober-ish-october": {
+    "width": 771,
+    "height": 792,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "badge-still-here": {
+    "width": 585,
+    "height": 757,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "badge-sunday-scaries-dodged": {
+    "width": 789,
+    "height": 664,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "badge-sunrise-club": {
+    "width": 924,
+    "height": 553,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "badge-two-day-dry": {
+    "width": 792,
+    "height": 833,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "badge-under-budget": {
+    "width": 899,
+    "height": 366,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "badge-water-weight": {
+    "width": 431,
+    "height": 806,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "badge-wingperson": {
+    "width": 717,
+    "height": 742,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "badge-zebra": {
+    "width": 949,
+    "height": 949,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "badges"
+  },
+  "drink-beer-12-5": {
+    "width": 491,
+    "height": 762,
+    "sizes": [
+      160,
+      320
+    ],
+    "group": "drinks"
+  },
+  "drink-beer-16-5": {
+    "width": 500,
+    "height": 857,
+    "sizes": [
+      160,
+      320
+    ],
+    "group": "drinks"
+  },
+  "drink-cider-16-5": {
+    "width": 591,
+    "height": 966,
+    "sizes": [
+      160,
+      320
+    ],
+    "group": "drinks"
+  },
+  "drink-cocktail-2-40": {
+    "width": 753,
+    "height": 880,
+    "sizes": [
+      160,
+      320
+    ],
+    "group": "drinks"
+  },
+  "drink-double-3-40": {
+    "width": 597,
+    "height": 620,
+    "sizes": [
+      160,
+      320
+    ],
+    "group": "drinks"
+  },
+  "drink-ipa-16-7": {
+    "width": 554,
+    "height": 975,
+    "sizes": [
+      160,
+      320
+    ],
+    "group": "drinks"
+  },
+  "drink-margarita": {
+    "width": 785,
+    "height": 924,
+    "sizes": [
+      160,
+      320
+    ],
+    "group": "drinks"
+  },
+  "drink-na-beer": {
+    "width": 555,
+    "height": 938,
+    "sizes": [
+      160,
+      320
+    ],
+    "group": "drinks"
+  },
+  "drink-seltzer-12-5": {
+    "width": 521,
+    "height": 914,
+    "sizes": [
+      160,
+      320
+    ],
+    "group": "drinks"
+  },
+  "drink-shot-1.5-40": {
+    "width": 513,
+    "height": 632,
+    "sizes": [
+      160,
+      320
+    ],
+    "group": "drinks"
+  },
+  "drink-water": {
+    "width": 609,
+    "height": 942,
+    "sizes": [
+      160,
+      320
+    ],
+    "group": "drinks"
+  },
+  "drink-wine-5-12": {
+    "width": 535,
+    "height": 938,
+    "sizes": [
+      160,
+      320
+    ],
+    "group": "drinks"
+  },
+  "drink-wine-6-13": {
+    "width": 623,
+    "height": 897,
+    "sizes": [
+      160,
+      320
+    ],
+    "group": "drinks"
+  },
+  "guide-hangxiety": {
+    "width": 830,
+    "height": 673,
+    "sizes": [
+      240,
+      480
+    ],
+    "group": "guides"
+  },
+  "guide-morning-after": {
+    "width": 589,
+    "height": 956,
+    "sizes": [
+      240,
+      480
+    ],
+    "group": "guides"
+  },
+  "guide-pacing": {
+    "width": 850,
+    "height": 737,
+    "sizes": [
+      240,
+      480
+    ],
+    "group": "guides"
+  },
+  "guide-pregame": {
+    "width": 792,
+    "height": 619,
+    "sizes": [
+      240,
+      480
+    ],
+    "group": "guides"
+  },
+  "guide-rounds": {
+    "width": 910,
+    "height": 743,
+    "sizes": [
+      240,
+      480
+    ],
+    "group": "guides"
+  },
+  "guide-saying-no": {
+    "width": 692,
+    "height": 889,
+    "sizes": [
+      240,
+      480
+    ],
+    "group": "guides"
+  },
+  "guide-sleep": {
+    "width": 766,
+    "height": 731,
+    "sizes": [
+      240,
+      480
+    ],
+    "group": "guides"
+  },
+  "guide-zebra": {
+    "width": 918,
+    "height": 344,
+    "sizes": [
+      240,
+      480
+    ],
+    "group": "guides"
+  },
+  "plan-last-call": {
+    "width": 725,
+    "height": 767,
+    "sizes": [
+      120,
+      240
+    ],
+    "group": "plan"
+  },
+  "plan-pace": {
+    "width": 746,
+    "height": 964,
+    "sizes": [
+      120,
+      240
+    ],
+    "group": "plan"
+  },
+  "plan-ride-home": {
+    "width": 813,
+    "height": 740,
+    "sizes": [
+      120,
+      240
+    ],
+    "group": "plan"
+  },
+  "plan-zebra": {
+    "width": 846,
+    "height": 437,
+    "sizes": [
+      120,
+      240
+    ],
+    "group": "plan"
+  },
+  "pourie-asleep": {
+    "width": 701,
+    "height": 949,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "pourie"
+  },
+  "pourie-attentive": {
+    "width": 665,
+    "height": 813,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "pourie"
+  },
+  "pourie-bust": {
+    "width": 740,
+    "height": 787,
+    "sizes": [
+      160,
+      320
+    ],
+    "group": "moods"
+  },
+  "pourie-bust-crown": {
+    "width": 742,
+    "height": 862,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "avatars"
+  },
+  "pourie-bust-lime": {
+    "width": 742,
+    "height": 842,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "avatars"
+  },
+  "pourie-bust-partyhat": {
+    "width": 746,
+    "height": 889,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "avatars"
+  },
+  "pourie-bust-shades": {
+    "width": 748,
+    "height": 819,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "avatars"
+  },
+  "pourie-bust-straw": {
+    "width": 740,
+    "height": 868,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "avatars"
+  },
+  "pourie-bust-umbrella": {
+    "width": 764,
+    "height": 910,
+    "sizes": [
+      200,
+      400
+    ],
+    "group": "avatars"
+  },
+  "pourie-cheer": {
+    "width": 725,
+    "height": 753,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "pourie"
+  },
+  "pourie-coin": {
+    "width": 693,
+    "height": 957,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "pourie"
+  },
+  "pourie-crew": {
+    "width": 1312,
+    "height": 625,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "pourie"
+  },
+  "pourie-dry": {
+    "width": 891,
+    "height": 824,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "pourie"
+  },
+  "pourie-evening": {
+    "width": 743,
+    "height": 819,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "pourie"
+  },
+  "pourie-kind": {
+    "width": 667,
+    "height": 852,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "pourie"
+  },
+  "pourie-mood-1": {
+    "width": 673,
+    "height": 763,
+    "sizes": [
+      160,
+      320
+    ],
+    "group": "moods"
+  },
+  "pourie-mood-2": {
+    "width": 722,
+    "height": 759,
+    "sizes": [
+      160,
+      320
+    ],
+    "group": "moods"
+  },
+  "pourie-mood-3": {
+    "width": 735,
+    "height": 833,
+    "sizes": [
+      160,
+      320
+    ],
+    "group": "moods"
+  },
+  "pourie-mood-4": {
+    "width": 650,
+    "height": 709,
+    "sizes": [
+      160,
+      320
+    ],
+    "group": "moods"
+  },
+  "pourie-mood-5": {
+    "width": 841,
+    "height": 793,
+    "sizes": [
+      160,
+      320
+    ],
+    "group": "moods"
+  },
+  "pourie-morning": {
+    "width": 805,
+    "height": 844,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "pourie"
+  },
+  "pourie-offline": {
+    "width": 836,
+    "height": 773,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "pourie"
+  },
+  "pourie-pacing": {
+    "width": 623,
+    "height": 844,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "pourie"
+  },
+  "pourie-plan": {
+    "width": 656,
+    "height": 846,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "pourie"
+  },
+  "pourie-planSaved": {
+    "width": 847,
+    "height": 830,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "pourie"
+  },
+  "pourie-proud": {
+    "width": 682,
+    "height": 896,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "pourie"
+  },
+  "pourie-read": {
+    "width": 579,
+    "height": 765,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "pourie"
+  },
+  "pourie-search": {
+    "width": 641,
+    "height": 820,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "pourie"
+  },
+  "pourie-sleepy": {
+    "width": 579,
+    "height": 792,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "pourie"
+  },
+  "pourie-tabClosed": {
+    "width": 828,
+    "height": 815,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "pourie"
+  },
+  "pourie-think": {
+    "width": 488,
+    "height": 966,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "pourie"
+  },
+  "pourie-trophy": {
+    "width": 871,
+    "height": 806,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "pourie"
+  },
+  "pourie-water": {
+    "width": 556,
+    "height": 941,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "pourie"
+  },
+  "pourie-wave": {
+    "width": 733,
+    "height": 867,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "pourie"
+  },
+  "web-dance": {
+    "width": 671,
+    "height": 780,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "web-pourie"
+  },
+  "web-highfive": {
+    "width": 763,
+    "height": 858,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "web-pourie"
+  },
+  "web-keys": {
+    "width": 861,
+    "height": 863,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "web-pourie"
+  },
+  "web-lifering": {
+    "width": 826,
+    "height": 826,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "web-pourie"
+  },
+  "web-magnify": {
+    "width": 627,
+    "height": 803,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "web-pourie"
+  },
+  "web-padlock": {
+    "width": 531,
+    "height": 929,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "web-pourie"
+  },
+  "web-phone": {
+    "width": 560,
+    "height": 912,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "web-pourie"
+  },
+  "web-point": {
+    "width": 735,
+    "height": 833,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "web-pourie"
+  },
+  "web-sheet-cheer-1": {
+    "width": 532,
+    "height": 532,
+    "sizes": [
+      360,
+      720
+    ],
+    "group": "web-sheets"
+  },
+  "web-sheet-cheer-2": {
+    "width": 532,
+    "height": 532,
+    "sizes": [
+      360,
+      720
+    ],
+    "group": "web-sheets"
+  },
+  "web-sheet-cheer-3": {
+    "width": 532,
+    "height": 532,
+    "sizes": [
+      360,
+      720
+    ],
+    "group": "web-sheets"
+  },
+  "web-sheet-cheer-4": {
+    "width": 532,
+    "height": 532,
+    "sizes": [
+      360,
+      720
+    ],
+    "group": "web-sheets"
+  },
+  "web-sheet-cheer-5": {
+    "width": 532,
+    "height": 532,
+    "sizes": [
+      360,
+      720
+    ],
+    "group": "web-sheets"
+  },
+  "web-sheet-cheer-6": {
+    "width": 532,
+    "height": 532,
+    "sizes": [
+      360,
+      720
+    ],
+    "group": "web-sheets"
+  },
+  "web-sheet-sip-1": {
+    "width": 532,
+    "height": 532,
+    "sizes": [
+      360,
+      720
+    ],
+    "group": "web-sheets"
+  },
+  "web-sheet-sip-2": {
+    "width": 532,
+    "height": 532,
+    "sizes": [
+      360,
+      720
+    ],
+    "group": "web-sheets"
+  },
+  "web-sheet-sip-3": {
+    "width": 532,
+    "height": 532,
+    "sizes": [
+      360,
+      720
+    ],
+    "group": "web-sheets"
+  },
+  "web-sheet-sip-4": {
+    "width": 532,
+    "height": 532,
+    "sizes": [
+      360,
+      720
+    ],
+    "group": "web-sheets"
+  },
+  "web-sheet-sip-5": {
+    "width": 532,
+    "height": 532,
+    "sizes": [
+      360,
+      720
+    ],
+    "group": "web-sheets"
+  },
+  "web-sheet-sip-6": {
+    "width": 532,
+    "height": 532,
+    "sizes": [
+      360,
+      720
+    ],
+    "group": "web-sheets"
+  },
+  "web-shield": {
+    "width": 658,
+    "height": 899,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "web-pourie"
+  },
+  "web-shrug": {
+    "width": 852,
+    "height": 869,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "web-pourie"
+  },
+  "web-sit": {
+    "width": 780,
+    "height": 870,
+    "sizes": [
+      480,
+      960
+    ],
+    "group": "web-pourie"
+  }
+}
