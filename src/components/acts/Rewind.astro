@@ -1,0 +1,388 @@
+---
+/**
+ * Act 3, the peak. Scrolling winds a clock backwards through one night: the morning after, midnight,
+ * 10:30 PM, 6:00 PM. Without scripting (or with reduced motion) it is four plain panels; behaviours/rewind.ts
+ * turns it into one pinned stage that scrubs the real app footage and walks the page through the evening.
+ */
+import Pourie from "@/components/rig/Pourie.astro";
+import rewind from "@/lib/generated/rewind.json";
+
+const copy: Record<string, { title: string; body: string; prop: string; scene: string }> = {
+  checkin: {
+    title: "Two taps.",
+    body: "The morning after, the app asks how you feel. That is the whole check-in.",
+    prop: "web-prop-mug",
+    scene: "",
+  },
+  score: {
+    title: "Tab closed.",
+    body: "Close the tab and the night gets a score out of 100. It is never a fail.",
+    prop: "web-prop-receipt",
+    scene: "web-prop-car",
+  },
+  logging: {
+    title: "One tap.",
+    body: "Every drink is one tap, from the Lock Screen if you like. Water rounds count too.",
+    prop: "web-prop-water",
+    scene: "web-prop-lamp",
+  },
+  plan: {
+    title: "Pick your number.",
+    body: "Before you go out: your number for the night, a pace, a last call and a ride home.",
+    prop: "web-prop-clipboard",
+    scene: "web-prop-door",
+  },
+};
+const stops = rewind.stops.map((stop) => ({ ...stop, ...copy[stop.name] }));
+---
+
+<section id="rewind" class="rewind relative" data-rewind aria-labelledby="rewind-title">
+  <div class="rewind-stage clock-scope bg-canvas text-ink" data-rewind-stage>
+    <!-- The sky: stars, a sun and a moon that travel as the clock winds. Live mode only. -->
+    <div class="rewind-live pointer-events-none absolute inset-0" aria-hidden="true">
+      <div class="rewind-stars absolute inset-0" data-rewind-stars>
+        {
+          [
+            [8, 14, 30], [17, 31, 18], [29, 9, 22], [41, 22, 14], [56, 12, 26], [68, 27, 16], [79, 8, 20], [90, 19, 28], [94, 38, 14], [5, 42, 16], [36, 40, 12], [62, 44, 18],
+          ].map(([x, y, s], i) => (
+            <svg viewBox="0 0 40 40" class="absolute" style={`left:${x}%;top:${y}%;width:${s}px;height:${s}px`}>
+              <path fill={i % 3 === 0 ? "#FFB83D" : i % 3 === 1 ? "#FFF6E5" : "#B49BFF"} d="M20 0c2 12 8 18 20 20-12 2-18 8-20 20-2-12-8-18-20-20 12-2 18-8 20-20z" />
+            </svg>
+          ))
+        }
+      </div>
+      <div class="rewind-sun absolute left-0 top-0 rounded-full bg-amber" data-rewind-sun></div>
+      <div class="rewind-moon absolute left-0 top-0" data-rewind-moon>
+        <svg viewBox="0 0 100 100" class="size-full"><path d="M71 6A46 46 0 1 0 94 71 38 38 0 0 1 71 6z" fill="#FFF6E5" stroke="#1F1A3D" stroke-width="4" stroke-linejoin="round"></path></svg>
+      </div>
+      <div class="rewind-ground absolute inset-x-0 bottom-0 border-t-4 border-outline bg-raised"></div>
+    </div>
+
+    <div class="rewind-layout relative mx-auto max-w-[1400px] px-5 sm:px-8">
+      <div class="rewind-copy">
+        <h2 id="rewind-title" class="rewind-static font-display text-title">One night, backwards.</h2>
+        <p class="rewind-clock hp-chip rewind-live border-outline bg-surface text-ink" data-rewind-clock aria-hidden="true">
+          <svg viewBox="0 0 50 50" class="size-[0.9em]" fill="currentColor" data-rewind-glyph><path d="M24 9v32L3 25z"></path><path d="M47 9v32L26 25z"></path></svg>
+          <span class="tabular-nums" data-rewind-time>9:00 AM</span>
+        </p>
+
+        <div class="rewind-panels">
+          <div class="rewind-panel rewind-live" data-rewind-panel="intro">
+            <p class="text-display font-display font-bold">A good morning starts the night before.</p>
+            <p class="mt-5 max-w-[32ch] text-lede text-muted">So let's take last night backwards.</p>
+          </div>
+
+          {
+            stops.map((stop) => (
+              <article class="rewind-panel" data-rewind-panel={stop.name}>
+                <p class="rewind-static hp-chip mb-4 w-fit">{stop.time}</p>
+                <h3 class="text-display">{stop.title}</h3>
+                <p class="mt-5 max-w-[32ch] text-lede text-muted">{stop.body}</p>
+                <figure class="rewind-static rewind-device mt-8">
+                  <img src={`/media/rewind-${stop.name}-end.webp`} alt={`The app at ${stop.time}: ${stop.title}`} width="640" height="1390" loading="lazy" decoding="async" />
+                </figure>
+              </article>
+            ))
+          }
+
+          <div class="rewind-panel rewind-live" data-rewind-panel="outro">
+            <p class="text-display font-display font-bold">That's the whole trick.</p>
+            <p class="mt-5 max-w-[32ch] text-lede text-muted">One number, picked at home. The rest is a tap at a time.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- The phone: real app footage, scrubbed by scroll. -->
+      <div class="rewind-phone rewind-live" data-rewind-phone aria-hidden="true">
+        <div class="rewind-device" data-rewind-device>
+          {
+            stops.map((stop, index) => (
+              <img
+                src={`/media/rewind-${stop.name}-${index === 1 ? "end" : "start"}.webp`}
+                alt=""
+                width="640"
+                height="1390"
+                loading="lazy"
+                decoding="async"
+                data-rewind-poster={stop.name}
+                class={index === 0 ? "" : "opacity-0"}
+              />
+            ))
+          }
+          <video muted playsinline preload="none" tabindex="-1" data-rewind-video></video>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pourie walks the night backwards along the bottom, with something from each hour. -->
+    <div class="rewind-pourie rewind-live" data-rewind-pourie aria-hidden="true">
+      <Pourie id="rewind-pourie" class="pourie-rig--edge w-full" />
+    </div>
+    {
+      stops
+        .filter((stop) => stop.scene)
+        .map((stop) => (
+          <img
+            src={`/art/${stop.scene}-400.webp`}
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+            class="rewind-scene rewind-live"
+            data-rewind-scene={stop.name}
+          />
+        ))
+    }
+
+    <ol class="rewind-rail rewind-live" aria-hidden="true">
+      {
+        stops.map((stop) => (
+          <li data-rewind-dot={stop.name}>
+            <span class="rewind-dot" />
+            <span class="rewind-dot-label">{stop.time}</span>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<script type="application/json" id="rewind-data" is:inline set:html={JSON.stringify({ ...rewind, stops })} />
+
+<style>
+  /* Baseline: four panels in a column, each with its screenshot. */
+  .rewind-stage {
+    position: relative;
+    padding-block: clamp(4rem, 10vw, 8rem);
+  }
+  .rewind-live {
+    display: none;
+  }
+  .rewind-panels {
+    display: grid;
+    gap: clamp(3rem, 8vw, 6rem);
+    margin-top: 2.5rem;
+  }
+  .rewind-device {
+    position: relative;
+    aspect-ratio: 640 / 1390;
+    overflow: hidden;
+    border-radius: 8.5% / 3.9%;
+    border: 5px solid var(--outline);
+    box-shadow: 0 12px 0 var(--outline-edge);
+    background: var(--surface);
+  }
+  .rewind-static.rewind-device {
+    width: min(100%, 300px);
+  }
+  .rewind-device img,
+  .rewind-device video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Live: one pinned stage, as tall as the scroll it is scrubbed by. */
+  :global(.rewind.is-live) {
+    height: 560vh;
+  }
+  :global(.rewind.is-live) .rewind-stage {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    padding-block: 0;
+    overflow: clip;
+  }
+  :global(.rewind.is-live) .rewind-live {
+    display: block;
+  }
+  :global(.rewind.is-live) .rewind-static {
+    display: none;
+  }
+  :global(.rewind.is-live) .rewind-layout {
+    display: grid;
+    height: 100%;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    align-items: center;
+    gap: 2rem;
+  }
+  :global(.rewind.is-live) .rewind-copy {
+    position: relative;
+    align-self: center;
+    padding-bottom: 18svh;
+  }
+  :global(.rewind.is-live) .rewind-clock {
+    display: inline-flex;
+    height: auto;
+    gap: 0.5em;
+    padding: 0.45em 0.8em 0.45em 0.7em;
+    border-width: 4px;
+    box-shadow: 0 8px 0 var(--outline-edge);
+    font-size: clamp(1.6rem, 3.4vw, 3rem);
+  }
+  :global(.rewind.is-live) .rewind-panels {
+    position: relative;
+    display: block;
+    margin-top: 1.6rem;
+    min-height: 42svh;
+  }
+  :global(.rewind.is-live) .rewind-panel {
+    position: absolute;
+    inset: 0 0 auto 0;
+    opacity: 0;
+    visibility: hidden;
+    will-change: transform, opacity;
+  }
+  :global(.rewind.is-live) .rewind-phone {
+    display: grid;
+    place-items: center;
+    height: 100%;
+    padding-bottom: 6svh;
+    perspective: 1400px;
+  }
+  :global(.rewind.is-live) .rewind-phone .rewind-device {
+    height: min(76svh, 760px);
+    will-change: transform;
+  }
+  .rewind-sun {
+    width: 17vmin;
+    height: 17vmin;
+    border: 5px solid #1f1a3d;
+    will-change: transform, opacity;
+  }
+  .rewind-moon {
+    width: 13vmin;
+    height: 13vmin;
+    will-change: transform, opacity;
+  }
+  .rewind-ground {
+    height: 9svh;
+  }
+  .rewind-pourie {
+    position: absolute;
+    left: max(4vw, calc((100vw - 1400px) / 2 + 2rem));
+    bottom: 2.5svh;
+    width: min(21svh, 190px);
+  }
+  .rewind-scene {
+    position: absolute;
+    bottom: 5.5svh;
+    left: calc(max(4vw, (100vw - 1400px) / 2 + 2rem) + min(27svh, 250px));
+    height: min(20svh, 180px);
+    width: auto;
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+  .rewind-rail {
+    position: absolute;
+    right: max(1.2rem, calc((100vw - 1400px) / 2 + 1rem));
+    top: 50%;
+    gap: 1.1rem;
+    transform: translateY(-50%);
+  }
+  :global(.rewind.is-live) .rewind-rail {
+    display: grid;
+  }
+  .rewind-rail li {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.6rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--muted);
+    transition: color 200ms;
+  }
+  .rewind-dot {
+    order: 2;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 3px solid var(--outline);
+    background: var(--surface);
+    transition:
+      background 200ms,
+      transform 300ms var(--ease-snappy);
+  }
+  .rewind-rail li[data-on] {
+    color: var(--ink);
+  }
+  .rewind-rail li[data-on] .rewind-dot {
+    background: var(--brand);
+    transform: scale(1.35);
+  }
+
+  @media (max-width: 860px) {
+    :global(.rewind.is-live) {
+      height: 480vh;
+    }
+    :global(.rewind.is-live) .rewind-layout {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr;
+      align-items: start;
+      gap: 0;
+      padding-top: 4.6rem;
+    }
+    :global(.rewind.is-live) .rewind-copy {
+      padding-bottom: 0;
+    }
+    :global(.rewind.is-live) .rewind-clock {
+      font-size: 1.25rem;
+      border-width: 3px;
+      box-shadow: 0 5px 0 var(--outline-edge);
+    }
+    :global(.rewind.is-live) .rewind-panels {
+      margin-top: 0.7rem;
+      min-height: 7.4rem;
+    }
+    :global(.rewind.is-live) .rewind-panel :is(h3, .text-display) {
+      font-size: clamp(1.9rem, 9.4vw, 2.6rem);
+    }
+    :global(.rewind.is-live) .rewind-panel p + p,
+    :global(.rewind.is-live) .rewind-panel h3 + p {
+      margin-top: 0.4rem;
+      font-size: 1rem;
+      line-height: 1.35;
+    }
+    :global(.rewind.is-live) .rewind-phone {
+      align-items: start;
+      padding: 0.6rem 0 0;
+    }
+    :global(.rewind.is-live) .rewind-phone .rewind-device {
+      height: min(calc(100svh - 19.5rem), 540px);
+    }
+    .rewind-pourie {
+      left: 2vw;
+      bottom: 1.2svh;
+      width: 26vw;
+    }
+    .rewind-scene {
+      left: auto;
+      right: 3vw;
+      bottom: 3svh;
+      height: 13svh;
+    }
+    .rewind-ground {
+      height: 6svh;
+    }
+    .rewind-sun {
+      width: 13vmin;
+      height: 13vmin;
+      border-width: 4px;
+    }
+    .rewind-moon {
+      width: 11vmin;
+      height: 11vmin;
+    }
+    .rewind-rail {
+      display: none !important;
+    }
+  }
+</style>
+
+<script>
+  import "@/behaviours/rewind";
+</script>
