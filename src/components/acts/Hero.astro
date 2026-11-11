@@ -7,7 +7,7 @@ import AppStoreBadge from "@/components/AppStoreBadge.astro";
 import Pourie from "@/components/rig/Pourie.astro";
 ---
 
-<section id="top" class="hero relative isolate h-svh min-h-[620px] overflow-clip" data-hero>
+<section id="top" class="hero relative isolate overflow-clip" data-hero>
   <!-- The liquid: a plain block, with a canvas band drawing the moving surface on top of its upper edge. -->
   <div class="hero-liquid absolute inset-x-0 bottom-0 bg-brand" data-liquid-body aria-hidden="true">
     <span class="hero-bubble" style="--x:8%;--s:22px;--d:9s;--o:-2s"></span>
@@ -20,7 +20,7 @@ import Pourie from "@/components/rig/Pourie.astro";
   </div>
   <canvas class="hero-surface absolute inset-x-0 w-full" data-liquid-canvas aria-hidden="true"></canvas>
 
-  <div class="relative mx-auto grid h-full max-w-[1400px] grid-rows-[1fr_auto_1fr] px-5 sm:px-8">
+  <div class="hero-grid relative mx-auto grid max-w-[1400px] grid-rows-[1fr_auto_1fr] px-5 sm:px-8">
     <div class="flex items-end pb-5 md:pb-8">
       <p class="hp-chip border-outline bg-surface text-ink" data-hero-eyebrow>For iPhone · 18+</p>
     </div>
@@ -34,7 +34,7 @@ import Pourie from "@/components/rig/Pourie.astro";
       </div>
     </div>
 
-    <div class="flex max-w-[30rem] flex-col gap-6 pt-5 md:gap-7 md:pt-8">
+    <div class="hero-copy flex max-w-[30rem] flex-col gap-6 pb-10 pt-5 md:gap-7 md:pb-14 md:pt-8">
       <p class="text-lede font-semibold text-indigo">
         Lighter mornings without giving up the night. Plan it, log each drink in one tap, and wake up to an honest, kind recap.
       </p>
@@ -62,6 +62,30 @@ import Pourie from "@/components/rig/Pourie.astro";
     --rig-h: min(58svh, 600px);
     /* Where on Pourie the waterline sits: 0.4 is the top of its own liquid. */
     --rig-anchor: 0.4;
+  }
+  /* At least one screen tall, and taller when the words need it: the two outer rows stay equal, so the
+     headline keeps to the waterline and the buttons always have room under them. */
+  .hero-grid {
+    min-height: max(100svh, 620px);
+  }
+  /* The headline also answers to the screen's height, so a wide, short window does not push the buttons off it. */
+  .hero-head :is(h1, [data-hero-under]) {
+    font-size: clamp(3.6rem, min(13.5vw, 19svh), 12.5rem);
+  }
+  /* A short desktop window: everything tightens so the buttons still land on the first screen. */
+  @media (min-width: 768px) and (max-height: 820px) {
+    .hero-head :is(h1, [data-hero-under]) {
+      font-size: clamp(3.6rem, min(13.5vw, 16svh), 12.5rem);
+    }
+    .hero-copy {
+      max-width: 36rem;
+      gap: 1rem;
+      padding-top: 1rem;
+      padding-bottom: 2.25rem;
+    }
+    .hero-copy p {
+      font-size: 1.15rem;
+    }
   }
   .hero-liquid {
     top: calc(50% + var(--band) / 2 - 1px);
