@@ -1,0 +1,33 @@
+# dependencies
+node_modules/
+
+# build output (dist.nosync is the local build; Vercel builds into dist)
+dist/
+dist.nosync/
+.astro/
+.vercel/
+
+# local checks
+shots/
+lighthouse/
+
+# HyperFrames working files
+hyperframes/**/renders/
+hyperframes/**/.hyperframes/
+hyperframes/**/node_modules/
+
+# environment
+.env
+.env.*
+!.env.example
+
+# editor and assistant files
+CLAUDE.md
+CLAUDE.local.md
+AGENTS.md
+.claude/
+.cursor/
+
+# macOS, and the "name 2.ext" copies iCloud Drive makes when a folder is rewritten
+.DS_Store
+* [0-9].*

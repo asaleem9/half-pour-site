@@ -1,0 +1,90 @@
+---
+import Base from "@/layouts/Base.astro";
+import { site } from "@/lib/config";
+
+const questions = [
+  {
+    q: "Do I need an account?",
+    a: "No. The app works straight away with no name or email. You only sign in with Apple if you want to join a Crew.",
+  },
+  {
+    q: "How do I log a drink without opening the app?",
+    a: "Start a night, then use the Live Activity on the Lock Screen, the Home Screen widget, or the Control Center controls (Log a drink, Log a water, Start a night). Each is one tap.",
+  },
+  {
+    q: "What is the Night Score?",
+    a: "A score out of 100 for the night, built from things you did: showing up and logging, pacing, water, staying at your number, stopping by last call, and planning ahead. Going over costs points. It never zeroes the night.",
+  },
+  {
+    q: "I went over my plan. What happens?",
+    a: "The night turns lilac, not red, and the score reflects it. Nothing resets. Logging it in full even earns a badge. Next night you are back on plan.",
+  },
+  {
+    q: "I forgot to log something. Can I fix it?",
+    a: "Yes. Open any night from the Week tab to change a drink's time or size, add one, or remove one. The night is re-scored.",
+  },
+  {
+    q: "What does my Crew see?",
+    a: "Your Night Scores, badges and dry nights. Never how many drinks you had. There are no comments and no leaderboards, only kudos.",
+  },
+  {
+    q: "Does it estimate blood alcohol?",
+    a: "No. Half Pour shows your pace and the time since your last drink. If you've been drinking, get a ride.",
+  },
+  {
+    q: "How do I delete my data?",
+    a: "Settings has two options: Delete your account removes everything from our database, and Erase data on this phone clears the device.",
+  },
+];
+---
+
+<Base title="Support" description="Answers to common questions about Half Pour, and how to report a problem." plain>
+  <article class="mx-auto max-w-[1100px] px-5 pb-24 pt-32 sm:px-8">
+    <p class="font-display text-lg font-semibold text-brand-ink">Support</p>
+    <h1 class="mt-2 text-display">How can we help?</h1>
+    <p class="mt-6 max-w-[60ch] text-lede text-muted">Quick answers first. If something is broken or missing, tell us and we will look at it.</p>
+
+    <div class="mt-10 flex flex-wrap gap-3">
+      <a href={site.newIssueUrl} class="hp-btn" rel="noopener">Report a problem</a>
+      <a href={site.issuesUrl} class="hp-btn hp-btn--secondary" rel="noopener">See open reports</a>
+    </div>
+    <p class="mt-4 max-w-[60ch] text-sm text-muted">
+      Reports are public on GitHub, so leave out anything personal. Say which iPhone and iOS version you use and what you expected to happen.
+    </p>
+
+    <section class="mt-14" aria-labelledby="questions">
+      <h2 id="questions" class="text-title">Common questions</h2>
+      <div class="mt-6 grid gap-3">
+        {
+          questions.map((item) => (
+            <details class="hp-card group px-5 py-4 open:bg-raised">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-xl font-semibold [&::-webkit-details-marker]:hidden">
+                {item.q}
+                <span class="grid size-8 shrink-0 place-items-center rounded-full bg-brand text-on-brand transition-transform duration-300 ease-(--ease-snappy) group-open:rotate-45" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" class="size-4" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round">
+                    <path d="M8 3v10M3 8h10" />
+                  </svg>
+                </span>
+              </summary>
+              <p class="mt-3 max-w-[62ch] text-muted">{item.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="prose-legal mt-14" aria-labelledby="more-help">
+      <h2 id="more-help">If drinking is getting hard to manage</h2>
+      <p>
+        Half Pour is a tracker, not a medical device, and not a treatment for alcohol use disorder. If drinking is hurting you or someone close to
+        you, these free services are a good place to start.
+      </p>
+      <ul>
+        <li><a href="https://www.rethinkingdrinking.niaaa.nih.gov" rel="noopener">NIAAA Rethinking Drinking</a></li>
+        <li><a href="https://www.samhsa.gov/find-help/national-helpline" rel="noopener">SAMHSA helpline</a> (US, free, 24/7)</li>
+        <li><a href="https://www.drinkaware.co.uk" rel="noopener">Drinkaware</a> (UK)</li>
+      </ul>
+      <p>In an emergency, call your local emergency number.</p>
+    </section>
+  </article>
+</Base>

@@ -1,0 +1,341 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+@custom-variant fine (@media (pointer: fine));
+@custom-variant motion-ok (@media (prefers-reduced-motion: no-preference));
+
+@font-face {
+  font-family: "Fredoka";
+  src: url("/fonts/Fredoka.woff2") format("woff2");
+  font-weight: 300 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Quicksand";
+  src: url("/fonts/Quicksand.woff2") format("woff2");
+  font-weight: 300 700;
+  font-display: swap;
+}
+
+/* The page keeps one clock. --night runs from 0 (day) to 1 (night) and --dusk warms the day canvas.
+   Every colour role is a mix of its day and night value, so a scope can travel through the evening
+   by moving two numbers. The values are the app's (DesignSystem/Palette.swift). */
+@property --night {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+@property --dusk {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+:root {
+  --night: 0;
+  --dusk: 0;
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  --night: 1;
+  color-scheme: dark;
+}
+
+:root,
+.clock-scope {
+  --n: calc(var(--night) * 100%);
+  --canvas: color-mix(in oklab, color-mix(in oklab, #fff6e5, #15122e var(--n)), #ffebc7 calc(var(--dusk) * 100%));
+  --surface: color-mix(in oklab, #ffffff, #221e45 var(--n));
+  --raised: color-mix(in oklab, #ffebc7, #2e2960 var(--n));
+  --line: color-mix(in oklab, #e6d6b8, #3b3572 var(--n));
+  --ink: color-mix(in oklab, #1f1a3d, #fff6e5 var(--n));
+  --muted: color-mix(in oklab, #645d80, #ada6cf var(--n));
+  --brand: color-mix(in oklab, #ffb02e, #ffb83d var(--n));
+  --brand-edge: color-mix(in oklab, #c97700, #b86e00 var(--n));
+  --brand-ink: color-mix(in oklab, #8f5200, #ffc35c var(--n));
+  --on-brand: #2a1600;
+  --success: color-mix(in oklab, #1fc98a, #3fe0a0 var(--n));
+  --success-edge: color-mix(in oklab, #0f9a66, #159a69 var(--n));
+  --success-ink: color-mix(in oklab, #086b45, #5be8b0 var(--n));
+  --water: color-mix(in oklab, #3db2ff, #5cc1ff var(--n));
+  --water-edge: color-mix(in oklab, #1486d6, #1c86d1 var(--n));
+  --water-ink: color-mix(in oklab, #0a5c9c, #7ccbff var(--n));
+  --over: color-mix(in oklab, #9b7bf7, #b49bff var(--n));
+  --over-edge: color-mix(in oklab, #7453d6, #7a5ce0 var(--n));
+  --over-ink: color-mix(in oklab, #5b3cc4, #c4b0ff var(--n));
+  --kudos: color-mix(in oklab, #ff6fa3, #ff85b3 var(--n));
+  --kudos-edge: color-mix(in oklab, #d9447c, #d14e84 var(--n));
+  --kudos-ink: color-mix(in oklab, #b8245f, #ff9cc2 var(--n));
+  /* Sticker outline: indigo by day, cream at night, as in the film. */
+  --outline: color-mix(in oklab, #1f1a3d, #fff6e5 var(--n));
+  --outline-edge: color-mix(in oklab, #1f1a3d, #3b3572 var(--n));
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-raised: var(--raised);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-brand: var(--brand);
+  --color-brand-edge: var(--brand-edge);
+  --color-brand-ink: var(--brand-ink);
+  --color-on-brand: var(--on-brand);
+  --color-success: var(--success);
+  --color-success-edge: var(--success-edge);
+  --color-success-ink: var(--success-ink);
+  --color-water: var(--water);
+  --color-water-edge: var(--water-edge);
+  --color-water-ink: var(--water-ink);
+  --color-over: var(--over);
+  --color-over-edge: var(--over-edge);
+  --color-over-ink: var(--over-ink);
+  --color-kudos: var(--kudos);
+  --color-kudos-edge: var(--kudos-edge);
+  --color-kudos-ink: var(--kudos-ink);
+  --color-outline: var(--outline);
+  --color-outline-edge: var(--outline-edge);
+  /* Fixed colours for art that does not follow the clock. */
+  --color-cream: #fff6e5;
+  --color-indigo: #1f1a3d;
+  --color-amber: #ffb02e;
+  --color-amber-edge: #c97700;
+  --color-night: #15122e;
+  --color-butter: #ffebc7;
+
+  --font-display: "Fredoka", ui-rounded, "SF Pro Rounded", "Arial Rounded MT Bold", system-ui, sans-serif;
+  --font-body: "Quicksand", ui-rounded, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* The app's radii (Tokens.swift). */
+  --radius-input: 12px;
+  --radius-control: 16px;
+  --radius-card: 24px;
+  --radius-hero: 32px;
+
+  --text-hero: clamp(3.6rem, 13.5vw, 12.5rem);
+  --text-hero--line-height: 0.92;
+  --text-display: clamp(2.6rem, 7.5vw, 6.5rem);
+  --text-display--line-height: 0.98;
+  --text-title: clamp(1.9rem, 4.2vw, 3.4rem);
+  --text-title--line-height: 1.05;
+  --text-lede: clamp(1.15rem, 1.9vw, 1.5rem);
+  --text-lede--line-height: 1.45;
+
+  /* The app's springs (Theme.swift: snappy, settle, celebrate) as easing curves. */
+  --ease-snappy: linear(0, 0.05, 0.167, 0.314, 0.465, 0.604, 0.723, 0.82, 0.894, 0.948, 0.985, 1.008, 1.021, 1.027, 1.028, 1.026, 1.023, 1.018, 1.014, 1.01, 1.007, 1.005, 1.003, 1.001, 1);
+  --ease-settle: linear(0, 0.042, 0.141, 0.266, 0.397, 0.522, 0.633, 0.728, 0.805, 0.866, 0.913, 0.948, 0.972, 0.989, 1, 1.006, 1.01, 1.011, 1.011, 1.01, 1.009, 1.007, 1.006, 1.005, 1);
+  --ease-celebrate: linear(0, 0.078, 0.256, 0.469, 0.672, 0.839, 0.962, 1.041, 1.082, 1.095, 1.089, 1.072, 1.052, 1.033, 1.017, 1.005, 0.997, 0.992, 0.991, 0.991, 0.993, 0.995, 0.997, 0.998, 1);
+}
+
+@layer base {
+  html {
+    background: var(--canvas);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-weight: 500;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    min-height: 100svh;
+    overflow-x: clip;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: 0.005em;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  a {
+    color: inherit;
+  }
+  :focus-visible {
+    outline: 3px solid var(--water);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  ::selection {
+    background: var(--brand);
+    color: var(--on-brand);
+  }
+  img,
+  svg,
+  video,
+  canvas {
+    display: block;
+    max-width: 100%;
+  }
+}
+
+@layer components {
+  /* The app's button (HPButtonStyle.swift): a flat face on a darker edge. Pressing drops the face onto the edge. */
+  .hp-btn {
+    --face: var(--brand);
+    --edge: var(--brand-edge);
+    --label: var(--on-brand);
+    --drop: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 56px;
+    padding: 8px 24px;
+    border-radius: var(--radius-control);
+    background: var(--face);
+    color: var(--label);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.125rem;
+    line-height: 1.1;
+    text-decoration: none;
+    box-shadow: 0 var(--drop) 0 var(--edge);
+    transform: translateY(0);
+    transition:
+      transform 120ms ease-out,
+      box-shadow 120ms ease-out;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  .hp-btn:active:not([aria-disabled="true"]),
+  .hp-btn.is-pressed {
+    transform: translateY(var(--drop));
+    box-shadow: 0 0 0 var(--edge);
+  }
+  .hp-btn--hero {
+    --drop: 6px;
+    min-height: 76px;
+    border-radius: var(--radius-card);
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  .hp-btn--compact {
+    --drop: 2px;
+    min-height: 44px;
+    padding: 8px 14px;
+    border-radius: var(--radius-input);
+    font-size: 0.95rem;
+  }
+  .hp-btn--secondary {
+    --face: var(--surface);
+    --edge: var(--line);
+    --label: var(--ink);
+    border: 2px solid var(--line);
+  }
+  .hp-btn--success {
+    --face: var(--success);
+    --edge: var(--success-edge);
+  }
+  .hp-btn--water {
+    --face: var(--water);
+    --edge: var(--water-edge);
+  }
+  .hp-btn--ink {
+    --face: var(--ink);
+    --edge: color-mix(in oklab, var(--ink), black 35%);
+    --label: var(--canvas);
+  }
+  .hp-btn[aria-disabled="true"] {
+    --face: var(--raised);
+    --edge: var(--line);
+    --label: var(--muted);
+    cursor: default;
+  }
+
+  /* The app's card (HPCard.swift): 24px radius, 2px border, no shadow. */
+  .hp-card {
+    border-radius: var(--radius-card);
+    border: 2px solid var(--line);
+    background: var(--surface);
+    padding: 1rem;
+  }
+  .hp-card--raised {
+    background: var(--raised);
+  }
+
+  /* The film's sticker look: an outline and a solid bottom edge. */
+  .sticker {
+    border: 4px solid var(--outline);
+    box-shadow: 0 8px 0 var(--outline-edge);
+  }
+  .hp-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 2px solid var(--line);
+    background: var(--surface);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .prose-legal {
+    max-width: 68ch;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+  }
+  .prose-legal h2 {
+    font-size: 1.6rem;
+    margin-top: 2.6rem;
+    margin-bottom: 0.6rem;
+  }
+  .prose-legal h3 {
+    font-size: 1.2rem;
+    margin-top: 1.6rem;
+    margin-bottom: 0.3rem;
+  }
+  .prose-legal p,
+  .prose-legal ul {
+    margin-top: 0.8rem;
+  }
+  .prose-legal ul {
+    list-style: disc;
+    padding-left: 1.3rem;
+  }
+  .prose-legal li + li {
+    margin-top: 0.35rem;
+  }
+  .prose-legal a {
+    color: var(--brand-ink);
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+}
+
+/* Moving between the three pages. Chrome and Safari cross-fade; others just navigate. */
+@view-transition {
+  navigation: auto;
+}
+
+/* The day and night toggle paints its own circular reveal (behaviours/theme.ts). */
+html.theme-reveal::view-transition-old(root),
+html.theme-reveal::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
+}

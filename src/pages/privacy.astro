@@ -1,0 +1,99 @@
+---
+import Base from "@/layouts/Base.astro";
+import { site } from "@/lib/config";
+---
+
+<Base title="Privacy" description="What Half Pour keeps, where it lives, and how to delete it." plain>
+  <article class="mx-auto max-w-[1100px] px-5 pb-24 pt-32 sm:px-8">
+    <p class="font-display text-lg font-semibold text-brand-ink">Privacy</p>
+    <h1 class="mt-2 text-display">Your nights are yours.</h1>
+    <p class="mt-6 max-w-[60ch] text-lede text-muted">
+      Half Pour keeps a record of your nights so it can show you your own patterns. It does not sell that record, show you ads, or follow you around
+      the internet. This page says exactly what is kept and where.
+    </p>
+    <p class="mt-4 text-sm text-muted">Last updated {site.legalUpdated}.</p>
+
+    <div class="prose-legal mt-10">
+      <h2>The short version</h2>
+      <ul>
+        <li>You can use the app without making an account or giving your name or email.</li>
+        <li>Your log lives on your phone first. A copy syncs to our database so it survives a lost or new phone.</li>
+        <li>There are no ads and no third-party tracking or advertising code in the app.</li>
+        <li>You can delete everything from inside the app, at any time.</li>
+      </ul>
+
+      <h2>What the app keeps</h2>
+      <h3>Your log</h3>
+      <p>
+        The nights you plan and log: each drink and water with its time, type and size; the plan you set (your number for the night, pace, last
+        call, ride home); your Night Score; the morning check-in (a mood and any tags you pick); badges you earn; and your weekly budget.
+      </p>
+      <h3>Your settings</h3>
+      <p>
+        A display name if you choose one, your Pourie's colour and accessory, units and currency, your own custom drinks, and reminder choices.
+      </p>
+      <h3>An account identifier</h3>
+      <p>
+        When you first open the app it creates an anonymous account: a random identifier with no name, email or phone number attached. It exists
+        so your log can sync. If you join a Crew you sign in with Apple, and Apple gives us an identifier for you and, if you allow it, an email
+        address (which can be Apple's private relay address). We use that only to sign you in.
+      </p>
+
+      <h2>Where it lives</h2>
+      <p>
+        Your log is stored on your phone. A copy is sent over an encrypted connection to a database hosted by Supabase in the United States, and is
+        encrypted at rest there. Database rules limit each account to its own rows.
+      </p>
+
+      <h2>What your Crew can see</h2>
+      <p>
+        Crews are optional. People in a Crew with you can see your display name and Pourie, your Night Scores, your badges, your dry nights, and
+        your status in a shared challenge. They never see how many drinks you had. There are no comments and no leaderboards, only kudos.
+      </p>
+
+      <h2>Apple Health</h2>
+      <p>
+        If you turn it on, Half Pour writes the drinks you log to Apple Health. It does not read anything from Health, and Health data is not sent
+        to our database.
+      </p>
+
+      <h2>Notifications</h2>
+      <p>Reminders such as last call and water rounds are scheduled on your phone. They are not sent from a server.</p>
+
+      <h2>What we do not do</h2>
+      <ul>
+        <li>We do not sell or rent your data.</li>
+        <li>We do not show ads or share data with advertisers.</li>
+        <li>We do not use your log to make decisions about you, and we do not estimate blood alcohol.</li>
+      </ul>
+
+      <h2>Deleting your data</h2>
+      <ul>
+        <li>
+          <strong>Delete your account</strong> in the app's Settings removes your account and every row tied to it from our database.
+        </li>
+        <li><strong>Erase data on this phone</strong> in Settings clears the copy on your device.</li>
+        <li>Anonymous accounts that have not been used for 90 days are deleted automatically.</li>
+      </ul>
+
+      <h2>This website</h2>
+      <p>
+        This site uses Vercel Web Analytics to count page views. It sets no cookies and does not identify you. The site loads no advertising or
+        social media trackers. The day or night setting and the sound switch are saved in your browser only.
+      </p>
+
+      <h2>Age</h2>
+      <p>Half Pour is for adults aged 18 and over. It is not directed at children, and we do not knowingly collect data from anyone under 18.</p>
+
+      <h2>Not medical advice</h2>
+      <p>Half Pour is a tracker, not a medical device, and not a treatment for alcohol use disorder.</p>
+
+      <h2>Changes and questions</h2>
+      <p>
+        If this page changes, the date at the top changes with it. For a question about your data, or to ask for something to be removed,
+        <a href={site.newIssueUrl} rel="noopener">open an issue</a> (please do not include personal details in a public issue; say that you have a
+        privacy request and we will arrange a private way to reply).
+      </p>
+    </div>
+  </article>
+</Base>

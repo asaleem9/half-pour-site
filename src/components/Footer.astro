@@ -1,0 +1,22 @@
+---
+import Wordmark from "@/components/Wordmark.astro";
+import { site } from "@/lib/config";
+---
+
+<footer class="border-t-2 border-line bg-canvas">
+  <div class="mx-auto flex max-w-[1400px] flex-col gap-8 px-5 py-12 sm:px-8 md:flex-row md:items-start md:justify-between">
+    <div class="flex max-w-md flex-col gap-4">
+      <Wordmark />
+      <p class="text-muted">
+        Half Pour is a tracker, not a medical device, and not a treatment for alcohol use disorder. For adults aged 18 and over. If you've been
+        drinking, get a ride.
+      </p>
+    </div>
+    <nav class="flex flex-wrap gap-x-8 gap-y-3 font-display text-lg font-semibold" aria-label="Footer">
+      <a href="/privacy" class="no-underline hover:underline">Privacy</a>
+      <a href="/support" class="no-underline hover:underline">Support</a>
+      <a href={site.issuesUrl} class="no-underline hover:underline" rel="noopener">Report a problem</a>
+    </nav>
+  </div>
+  <div class="mx-auto max-w-[1400px] px-5 pb-10 text-sm text-muted sm:px-8">© 2026 Half Pour</div>
+</footer>

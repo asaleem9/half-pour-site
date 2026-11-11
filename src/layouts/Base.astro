@@ -1,0 +1,71 @@
+---
+import "@/styles/global.css";
+import Analytics from "@vercel/analytics/astro";
+import Nav from "@/components/Nav.astro";
+import Footer from "@/components/Footer.astro";
+import { site } from "@/lib/config";
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Legal pages use a quieter nav and no landing behaviours. */
+  plain?: boolean;
+  noindex?: boolean;
+}
+
+const { title, description = site.description, plain = false, noindex = false } = Astro.props;
+const fullTitle = title ? `${title} · ${site.name}` : `${site.name}: ${site.tagline}`;
+const canonical = new URL(Astro.url.pathname, site.url).href;
+const shareImage = new URL("/brand/share.png", site.url).href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" content="#FFF6E5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#15122E" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/png" href="/brand/icon-192.png" />
+    <link rel="apple-touch-icon" href="/brand/icon-180.png" />
+    <link rel="preload" href="/fonts/Fredoka.woff2" as="font" type="font/woff2" crossorigin />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={shareImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <!-- Set the theme before first paint: the visitor's saved choice, else the system setting. -->
+    <script is:inline>
+      (function () {
+        var saved = null;
+        try {
+          saved = localStorage.getItem("hp-theme");
+        } catch (e) {}
+        var dark = saved ? saved === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.dataset.theme = dark ? "dark" : "light";
+      })();
+    </script>
+  </head>
+  <body class="bg-canvas text-ink">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-xl focus:bg-surface focus:px-4 focus:py-3 focus:font-bold"
+      >Skip to content</a
+    >
+    <Nav plain={plain} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <Analytics />
+    <script>
+      import "@/behaviours/theme";
+    </script>
+  </body>
+</html>

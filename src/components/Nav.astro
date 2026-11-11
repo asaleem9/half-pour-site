@@ -1,0 +1,62 @@
+---
+import Wordmark from "@/components/Wordmark.astro";
+import AppStoreBadge from "@/components/AppStoreBadge.astro";
+
+interface Props {
+  plain?: boolean;
+}
+const { plain = false } = Astro.props;
+---
+
+<header class="pointer-events-none fixed inset-x-0 top-0 z-50" data-nav>
+  <div class="mx-auto flex max-w-[1400px] items-center justify-between gap-3 px-4 pt-3 sm:px-6 sm:pt-4">
+    <div class="pointer-events-auto rounded-full bg-canvas/85 px-3 py-1.5 backdrop-blur-sm" data-nav-pill>
+      <Wordmark />
+    </div>
+
+    <nav class="pointer-events-auto flex items-center gap-2" aria-label="Site">
+      {
+        plain && (
+          <div class="hidden items-center gap-1 sm:flex">
+            <a href="/privacy" class="rounded-full px-3 py-2 font-display font-semibold no-underline hover:bg-raised">
+              Privacy
+            </a>
+            <a href="/support" class="rounded-full px-3 py-2 font-display font-semibold no-underline hover:bg-raised">
+              Support
+            </a>
+          </div>
+        )
+      }
+
+      <!-- The page's clock. It shows the story's time of day, and tapping it switches day and night. -->
+      <button type="button" class="hp-chip h-11 cursor-pointer gap-2 pl-2.5 pr-3.5" data-clock-chip aria-label="Switch between day and night" aria-pressed="false">
+        <span class="relative grid size-6 place-items-center" aria-hidden="true">
+          <svg viewBox="0 0 24 24" class="absolute size-6 dark:hidden" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+            <circle cx="12" cy="12" r="4.2" fill="var(--brand)" stroke="currentColor"></circle>
+            <path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"></path>
+          </svg>
+          <svg viewBox="0 0 24 24" class="absolute hidden size-6 dark:block" fill="var(--brand)" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round">
+            <path d="M20 14.2A8.4 8.4 0 0 1 9.8 4 8.4 8.4 0 1 0 20 14.2z"></path>
+          </svg>
+        </span>
+        <span class="tabular-nums" data-clock-text>9:00 AM</span>
+      </button>
+
+      {
+        !plain && (
+          <button type="button" class="hp-chip size-11 cursor-pointer justify-center p-0" data-sound-toggle aria-label="Sound" aria-pressed="false">
+            <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z" fill="currentColor"></path>
+              <path d="M15.5 9.2a4 4 0 0 1 0 5.6M18.2 6.5a8 8 0 0 1 0 11" data-sound-on class="hidden"></path>
+              <path d="M16 9.5l5 5M21 9.5l-5 5" data-sound-off></path>
+            </svg>
+          </button>
+        )
+      }
+
+      <div class="hidden md:block">
+        <AppStoreBadge class="hp-btn--compact" />
+      </div>
+    </nav>
+  </div>
+</header>
