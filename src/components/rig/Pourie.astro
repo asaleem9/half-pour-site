@@ -12,6 +12,11 @@ interface Props {
   label?: string;
 }
 const { id, class: className = "", label } = Astro.props;
+/** The cream die-cut edge, like the sticker art, so the indigo outline reads on dark and amber grounds. */
+const edged = className.split(/\s+/).includes("pourie-rig--edge");
+const EDGE = "#FFF6E5";
+/** How far the edge reaches past the outline, in the drawing's own units. */
+const E = 14;
 
 const INK = "#1F1A3D";
 const AMBER = "#FFB02E";
@@ -38,6 +43,35 @@ const LIQUID = "M112 290 C150 276 188 276 226 288 C264 300 302 300 340 288 C378 
 
   <g data-rig-root>
    <g data-rig-bob>
+    {
+      /* The edge is drawn, not filtered: a fatter cream copy of every part, behind all of them.
+         rig.ts keeps each copy moving with its part. (A CSS filter left ghosts behind on iOS when Pourie jumped.) */
+      edged && (
+        <g data-rig-edges stroke={EDGE} fill={EDGE}>
+          <g data-rig-edge="leg-l">
+            <path d="M256 556 L252 646" stroke-width={56 + E * 2} fill="none" />
+            <ellipse cx="226" cy="662" rx={60 + E} ry={37 + E} stroke="none" />
+          </g>
+          <g data-rig-edge="leg-r">
+            <path d="M378 556 L382 646" stroke-width={56 + E * 2} fill="none" />
+            <ellipse cx="408" cy="662" rx={60 + E} ry={37 + E} stroke="none" />
+          </g>
+          <g data-rig-edge="arm-l">
+            <path d="M136 398 Q86 418 66 484" stroke-width={56 + E * 2} fill="none" />
+            <circle cx="62" cy="492" r={41 + E} stroke="none" />
+          </g>
+          <g data-rig-edge="arm-r">
+            <path d="M494 392 Q546 374 576 314" stroke-width={56 + E * 2} fill="none" />
+            <circle cx="582" cy="302" r={42 + E} stroke="none" />
+            <circle cx="553" cy="284" r={24 + E} stroke="none" />
+          </g>
+          <g data-rig-edge="body">
+            <path d={BODY} stroke-width={11 + E * 2} />
+            <ellipse cx="315" cy="67" rx="215" ry="44" stroke-width={11 + E * 2} />
+          </g>
+        </g>
+      )
+    }
     <!-- Legs sit behind the glass and turn at the hip. -->
     <g data-rig-leg="l">
       <path d="M256 556 L252 646" stroke={INK} stroke-width="56"></path>
@@ -107,10 +141,6 @@ const LIQUID = "M112 290 C150 276 188 276 226 288 C264 300 302 300 340 288 C378 
     display: block;
     overflow: visible;
     height: auto;
-  }
-  /* A cream die-cut edge, like the sticker art, so the indigo outline reads on dark and amber grounds. */
-  .pourie-rig--edge {
-    filter: drop-shadow(7px 0 0 #fff6e5) drop-shadow(-7px 0 0 #fff6e5) drop-shadow(0 7px 0 #fff6e5) drop-shadow(0 -7px 0 #fff6e5);
   }
   .pourie-rig [data-rig-leg],
   .pourie-rig [data-rig-arm],

@@ -83,6 +83,30 @@ export function createRig(el: SVGSVGElement, options: { idle?: boolean } = {}): 
   };
   const still = reduced();
 
+  // The cream edge is a fatter copy of each moving part, drawn behind them all. Whenever a part's
+  // transform changes, its copy takes the same one, so the edge never lags or tears.
+  const twins: [SVGGElement, string][] = [
+    [legL, "leg-l"],
+    [legR, "leg-r"],
+    [armL, "arm-l"],
+    [armR, "arm-r"],
+    [body, "body"],
+  ];
+  const edgeWatch = new MutationObserver((changes) => {
+    for (const change of changes) {
+      const part = change.target as SVGGElement;
+      const name = twins.find(([el]) => el === part)?.[1];
+      const twin = name ? el.querySelector(`[data-rig-edge="${name}"]`) : null;
+      const transform = part.getAttribute("transform");
+      if (!twin) continue;
+      if (transform) twin.setAttribute("transform", transform);
+      else twin.removeAttribute("transform");
+    }
+  });
+  if (el.querySelector("[data-rig-edges]")) {
+    for (const [part] of twins) edgeWatch.observe(part, { attributes: true, attributeFilter: ["transform"] });
+  }
+
   gsap.set(legL, { svgOrigin: HIP.l });
   gsap.set(legR, { svgOrigin: HIP.r });
   gsap.set(armL, { svgOrigin: SHOULDER.l });
@@ -291,6 +315,7 @@ export function createRig(el: SVGSVGElement, options: { idle?: boolean } = {}): 
     destroyed = true;
     setIdle(false);
     gsap.ticker.remove(tickFluid);
+    edgeWatch.disconnect();
     gsap.killTweensOf([root, bob, body, legL, legR, armL, armR, eyes, face, ...eyeDots]);
   }
 
