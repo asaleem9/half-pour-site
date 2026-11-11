@@ -29,6 +29,9 @@ if (hero) {
   }
 
   let float = 0;
+  // On phones Pourie hangs above the headline; `dive` is how far a tap has dropped it towards the drink.
+  const dive = { y: 0 };
+  const floating = window.matchMedia("(max-width: 767px)");
   const liquid = createLiquid({
     canvas,
     body,
@@ -47,7 +50,7 @@ if (hero) {
       // Pourie rides the surface, a little smoothed so it bobs instead of jittering.
       const target = -heightAt(pourieX);
       float += still ? target - float : (target - float) * 0.18;
-      pourieButton.style.transform = `translate3d(0, ${float.toFixed(2)}px, 0)`;
+      pourieButton.style.transform = `translate3d(0, ${(float + dive.y).toFixed(2)}px, 0)`;
     },
   });
 
@@ -97,8 +100,33 @@ if (hero) {
       { passive: true },
     );
 
-    // Tap Pourie: a hop, then a splash where it lands.
+    // Tap Pourie: a hop, then a splash where it lands. Where it floats above the headline, it drops
+    // into the drink instead and bobs back up to where it was.
     pourieButton.addEventListener("click", () => {
+      if (floating.matches) {
+        if (gsap.isTweening(dive)) return;
+        const feet = pourieButton.getBoundingClientRect().bottom - dive.y;
+        const box = canvas.getBoundingClientRect();
+        const drop = Math.max(0, box.top + box.height / 2 - feet) + pourieButton.offsetHeight * 0.3;
+        rig.setEyes("happy");
+        rig.setMouth("oh");
+        gsap
+          .timeline()
+          .to(dive, { y: -18, duration: 0.16, ease: "power2.out" })
+          .to(dive, { y: drop, duration: 0.42, ease: "power2.in" })
+          .add(() => {
+            liquid.splash(pourieX, 420);
+            rig.slosh(40);
+            window.dispatchEvent(new CustomEvent("hp:sound", { detail: { name: "splash", intensity: 0.9 } }));
+          })
+          .to(dive, { y: 0, duration: 0.9, ease: "back.out(1.5)" }, "+=0.12")
+          .add(() => {
+            rig.setMouth("open");
+            rig.setEyes("open");
+            rig.wave();
+          }, "-=0.35");
+        return;
+      }
       rig.setEyes("happy");
       rig.hop(coarsePointer() ? 54 : 84, () => {
         liquid.splash(pourieX, 330);

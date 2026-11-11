@@ -48,7 +48,7 @@ import Pourie from "@/components/rig/Pourie.astro";
     </div>
   </div>
 
-  <!-- Pourie rides the surface. On wide screens its own liquid lines up with the page's. -->
+  <!-- Pourie rides the surface on wide screens, where its own liquid lines up with the page's; on phones it floats above the headline. -->
   <button type="button" class="hero-pourie absolute cursor-pointer appearance-none border-0 bg-transparent p-0" data-hero-pourie aria-label="Pourie. Tap to make a splash.">
     <Pourie id="hero-pourie" class="pourie-rig--edge w-full" />
   </button>
@@ -138,15 +138,16 @@ import Pourie from "@/components/rig/Pourie.astro";
   @media (max-width: 767px) {
     .hero {
       --band: 150px;
-      /* On phones Pourie stands on the surface, beside the first line of the headline. */
-      --rig-h: 38vw;
-      --rig-anchor: 0.965;
+      /* On phones Pourie floats in the open space above the headline, so the screen is not all middle.
+         A tap drops it into the drink and it bobs back up (behaviours/hero.ts). */
+      --rig-h: min(50vw, 30svh);
     }
     .hero-pourie {
-      right: -1vw;
+      right: 7vw;
+      top: clamp(84px, 12svh, 132px);
     }
     .hero-head :is(h1, [data-hero-under]) {
-      font-size: 14vw;
+      font-size: 18vw;
     }
   }
 </style>
