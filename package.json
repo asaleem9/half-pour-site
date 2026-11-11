@@ -17,7 +17,8 @@
     "art": "node scripts/build-art.mjs",
     "footage": "node scripts/build-footage.mjs",
     "media": "node scripts/build-media.mjs",
-    "shoot": "node scripts/shoot.mjs"
+    "shoot": "node scripts/shoot.mjs",
+    "share": "node scripts/share.mjs"
   },
   "dependencies": {
     "@hyperframes/player": "0.9.32",

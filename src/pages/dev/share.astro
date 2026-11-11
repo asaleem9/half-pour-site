@@ -1,0 +1,136 @@
+---
+/**
+ * The 1200 x 630 card that link previews show. `npm run share` photographs this page into
+ * public/brand/share.png, so the card always matches the hero.
+ */
+import "@/styles/global.css";
+---
+
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1200" />
+    <meta name="robots" content="noindex" />
+    <title>Half Pour share card</title>
+  </head>
+  <body>
+    <main class="card" data-share-card>
+      <div class="liquid" aria-hidden="true">
+        <svg viewBox="0 0 1200 60" preserveAspectRatio="none" class="wave">
+          <path d="M0 34 C 100 6, 200 6, 300 30 S 500 58, 600 32 S 800 4, 900 28 S 1100 56, 1200 30 V 60 H 0 Z" fill="#FFB02E"></path>
+        </svg>
+        <span class="bubble" style="left:6%;bottom:18%;width:26px"></span>
+        <span class="bubble" style="left:17%;bottom:52%;width:14px"></span>
+        <span class="bubble" style="left:44%;bottom:12%;width:18px"></span>
+        <span class="bubble" style="left:58%;bottom:44%;width:12px"></span>
+        <span class="bubble" style="left:93%;bottom:30%;width:20px"></span>
+      </div>
+
+      <div class="mark">
+        <svg viewBox="0 0 40 46" width="54" height="62" aria-hidden="true">
+          <path d="M5.5 4.5h29l-3.2 34.2a3.6 3.6 0 0 1-3.6 3.3H12.3a3.6 3.6 0 0 1-3.6-3.3L5.5 4.5z" fill="#FFF6E5"></path>
+          <path d="M7.3 23c3-1.8 5.6-1.8 8.4 0s5.6 1.8 8.4 0 5.6-1.8 8.6 0l-1.4 15.7a3.6 3.6 0 0 1-3.6 3.3H12.3a3.6 3.6 0 0 1-3.6-3.3L7.3 23z" fill="#FFB02E"></path>
+          <path d="M5.5 4.5h29l-3.2 34.2a3.6 3.6 0 0 1-3.6 3.3H12.3a3.6 3.6 0 0 1-3.6-3.3L5.5 4.5z" fill="none" stroke="#1F1A3D" stroke-width="3.4" stroke-linejoin="round"></path>
+          <path d="M12.2 10.5l.8 8" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round"></path>
+          <circle cx="15.6" cy="30.4" r="1.9" fill="#1F1A3D"></circle>
+          <circle cx="24.4" cy="30.4" r="1.9" fill="#1F1A3D"></circle>
+          <path d="M17.2 34.6c1.7 1.6 3.9 1.6 5.6 0" fill="none" stroke="#1F1A3D" stroke-width="1.8" stroke-linecap="round"></path>
+        </svg>
+        <span>Half Pour</span>
+      </div>
+
+      <h1>Cut back,<br />not out.</h1>
+      <p class="line">Lighter mornings without giving up the night.</p>
+      <p class="pill">For iPhone · 18+</p>
+
+      <img src="/art/pourie-wave-960.webp" alt="" width="400" height="400" class="pourie" />
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  html,
+  body {
+    margin: 0;
+    background: #fff6e5;
+  }
+  .card {
+    position: relative;
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+    background: #fff6e5;
+    color: #1f1a3d;
+    font-family: var(--font-display);
+  }
+  .liquid {
+    position: absolute;
+    inset: 50% 0 0 0;
+    background: #ffb02e;
+  }
+  .wave {
+    position: absolute;
+    left: 0;
+    bottom: 100%;
+    width: 100%;
+    height: 60px;
+    margin-bottom: -1px;
+  }
+  .bubble {
+    position: absolute;
+    aspect-ratio: 1;
+    border-radius: 999px;
+    border: 4px solid rgb(255 246 229 / 0.55);
+  }
+  .mark {
+    position: absolute;
+    left: 64px;
+    top: 48px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  h1 {
+    position: absolute;
+    left: 60px;
+    top: 152px;
+    margin: 0;
+    font-size: 148px;
+    font-weight: 700;
+    line-height: 0.94;
+    letter-spacing: 0.005em;
+  }
+  .line {
+    position: absolute;
+    left: 66px;
+    top: 468px;
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 30px;
+    font-weight: 700;
+  }
+  .pill {
+    position: absolute;
+    left: 64px;
+    top: 536px;
+    margin: 0;
+    padding: 8px 22px;
+    border: 4px solid #1f1a3d;
+    border-bottom-width: 8px;
+    border-radius: 999px;
+    background: #fff6e5;
+    font-size: 26px;
+    font-weight: 600;
+  }
+  .pourie {
+    position: absolute;
+    right: 48px;
+    top: 118px;
+    width: 400px;
+    height: auto;
+  }
+</style>
