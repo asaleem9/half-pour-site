@@ -4,7 +4,9 @@
       "size": "1024x1024",
       "transparent": true,
       "character": "character.txt",
-      "refs": ["refs/pourie-sheet.png"],
+      "refs": [
+        "refs/pourie-sheet.png"
+      ],
       "ref_note": "The attached image is the official character sheet. Draw exactly this character: identical proportions, colours, face and outline weight. Do not reproduce the sheet layout; draw only what is described.",
       "sticker": true,
       "template": "One single full-body drawing of Pourie, centred, with a generous margin all round and nothing else in the image: {subject}. Transparent background."
@@ -12,7 +14,9 @@
     "web-props": {
       "size": "1024x1024",
       "transparent": true,
-      "refs": ["refs/style-objects.png"],
+      "refs": [
+        "refs/style-objects.png"
+      ],
       "ref_note": "The attached image shows the illustration style only: copy its outline weight, flat fills, palette and level of detail. Do not copy its subjects and do not draw any character or face.",
       "sticker": true,
       "template": "One object and nothing else: {subject}. Simple and bold, centred with a generous margin. No face, no character, no text. Transparent background."
@@ -21,40 +25,149 @@
       "size": "1536x1024",
       "transparent": true,
       "character": "character.txt",
-      "refs": ["refs/pourie-sheet.png"],
+      "refs": [
+        "refs/pourie-sheet.png"
+      ],
       "ref_note": "The attached image is the official character sheet. Draw exactly this character in every frame: identical proportions, colours, face and outline weight. Do not reproduce the sheet layout.",
       "sticker": true,
       "template": "An animation sheet: six separate full-body drawings of Pourie arranged in two rows of three on an invisible grid, each drawing the same size, centred in its own cell with clear empty space around it, nothing overlapping and nothing else in the image. The six drawings are consecutive frames of one movement, read left to right along the top row and then the bottom row: {subject}. The character is identical in every frame; only the pose changes. Transparent background."
     }
   },
   "images": [
-    { "name": "web-sheet-cheer", "group": "web-sheets", "subject": "frame 1 standing with knees slightly bent and arms low, getting ready to jump; frame 2 pushing off the ground with arms swinging up; frame 3 in the air with both arms straight up and both feet off the ground, eyes closed in joy; frame 4 at the top of the jump with arms up and legs tucked; frame 5 coming down with arms out to the sides; frame 6 landed with knees bent and arms out, big open smile" },
-    { "name": "web-sheet-sip", "group": "web-sheets", "subject": "frame 1 holding a tall glass of water with a striped straw in both hands at waist height, looking at it; frame 2 lifting the glass towards its face; frame 3 the straw at its mouth, eyes open; frame 4 sipping with eyes closed and happy; frame 5 lowering the glass, eyes still closed; frame 6 holding the glass at waist height again with a contented open smile" },
-    { "name": "web-point", "group": "web-pourie", "subject": "standing and pointing to the right with one outstretched arm, looking that way, happy open smile" },
-    { "name": "web-phone", "group": "web-pourie", "subject": "holding a smartphone in one hand and tapping its screen with the other hand, looking down at it with a happy smile" },
-    { "name": "web-shield", "group": "web-pourie", "subject": "holding a round mint green (#1FC98A) shield with a white tick on it in front of its body with one hand, confident smile" },
-    { "name": "web-highfive", "group": "web-pourie", "subject": "one arm raised high for a high five with the open mitten hand facing forward, big open smile" },
-    { "name": "web-sit", "group": "web-pourie", "subject": "sitting on the front edge of a flat cream ledge with both legs dangling down over the edge, hands resting on the ledge at its sides, relaxed happy smile" },
-    { "name": "web-magnify", "group": "web-pourie", "subject": "holding a large magnifying glass up in one hand and looking through it, curious smile" },
-    { "name": "web-keys", "group": "web-pourie", "subject": "holding up a car key on a ring with one raised hand, pleased smile" },
-    { "name": "web-dance", "group": "web-pourie", "subject": "dancing with one arm up and one arm down and one foot lifted off the ground, joyful open smile" },
-    { "name": "web-shrug", "group": "web-pourie", "subject": "shrugging gently with both mitten hands raised palms up at shoulder height, a soft kind closed smile" },
-    { "name": "web-padlock", "group": "web-pourie", "subject": "hugging a large closed padlock in sky blue (#3DB2FF) to its chest with both arms, calm reassuring smile" },
-    { "name": "web-lifering", "group": "web-pourie", "subject": "holding a pink (#FF6FA3) and white striped life ring in one hand at its side and waving with the other hand, friendly smile" },
-    { "name": "web-sign", "group": "web-pourie", "subject": "holding up a blank rectangular cream sign on a short stick with both hands above its head, the sign completely blank with no text or marks, happy smile" },
-    { "name": "web-jump", "group": "web-pourie", "subject": "jumping in the air with both arms up and both feet off the ground, eyes closed in joy, wide open smile, a few small confetti pieces in mint, lilac and pink around it" },
-    { "name": "web-peek", "group": "web-pourie", "subject": "standing and leaning forward a little with both mitten hands held together in front, looking straight ahead with wide curious eyes and a small open smile" },
-    { "name": "web-prop-mug", "group": "web-props", "subject": "a white coffee mug with a small curl of steam" },
-    { "name": "web-prop-receipt", "group": "web-props", "subject": "a long white paper receipt with a wavy torn bottom edge and one large mint green tick on it" },
-    { "name": "web-prop-water", "group": "web-props", "subject": "a tall glass of water with a green and white striped straw" },
-    { "name": "web-prop-clipboard", "group": "web-props", "subject": "a cream clipboard with a sky blue clip and three short indigo lines" },
-    { "name": "web-prop-phone", "group": "web-props", "subject": "a smartphone seen from the front with a plain cream screen and one large amber circle button near the bottom" },
-    { "name": "web-prop-trophy", "group": "web-props", "subject": "a small golden amber trophy cup on a deep amber base" },
-    { "name": "web-prop-shield", "group": "web-props", "subject": "a round mint green shield with a white tick" },
-    { "name": "web-prop-keys", "group": "web-props", "subject": "a car key and a house key on one ring" },
-    { "name": "web-prop-lime", "group": "web-props", "subject": "a lime wedge" },
-    { "name": "web-prop-car", "group": "web-props", "subject": "a small friendly car seen from the side in sky blue with a white light on the roof" },
-    { "name": "web-prop-door", "group": "web-props", "subject": "a front door in amber with a small round window, a round door knob and a doormat" },
-    { "name": "web-prop-lamp", "group": "web-props", "subject": "a street lamp on a tall indigo post with a round amber light" }
+    {
+      "name": "web-sheet-cheer",
+      "group": "web-sheets",
+      "subject": "frame 1 standing with knees slightly bent and arms low, getting ready to jump; frame 2 pushing off the ground with arms swinging up; frame 3 in the air with both arms straight up and both feet off the ground, eyes closed in joy; frame 4 at the top of the jump with arms up and legs tucked; frame 5 coming down with arms out to the sides; frame 6 landed with knees bent and arms out, big open smile"
+    },
+    {
+      "name": "web-sheet-sip",
+      "group": "web-sheets",
+      "subject": "frame 1 holding a tall glass of water with a striped straw in both hands at waist height, looking at it; frame 2 lifting the glass towards its face; frame 3 the straw at its mouth, eyes open; frame 4 sipping with eyes closed and happy; frame 5 lowering the glass, eyes still closed; frame 6 holding the glass at waist height again with a contented open smile"
+    },
+    {
+      "name": "web-point",
+      "group": "web-pourie",
+      "subject": "standing and pointing to the right with one outstretched arm, looking that way, happy open smile"
+    },
+    {
+      "name": "web-phone",
+      "group": "web-pourie",
+      "subject": "holding a smartphone in one hand and tapping its screen with the other hand, looking down at it with a happy smile"
+    },
+    {
+      "name": "web-shield",
+      "group": "web-pourie",
+      "subject": "holding a round mint green (#1FC98A) shield with a white tick on it in front of its body with one hand, confident smile"
+    },
+    {
+      "name": "web-highfive",
+      "group": "web-pourie",
+      "subject": "one arm raised high for a high five with the open mitten hand facing forward, big open smile"
+    },
+    {
+      "name": "web-sit",
+      "group": "web-pourie",
+      "subject": "sitting on the front edge of a flat cream ledge with both legs dangling down over the edge, hands resting on the ledge at its sides, relaxed happy smile"
+    },
+    {
+      "name": "web-magnify",
+      "group": "web-pourie",
+      "subject": "holding a large magnifying glass up in one hand and looking through it, curious smile"
+    },
+    {
+      "name": "web-keys",
+      "group": "web-pourie",
+      "subject": "holding up a car key on a ring with one raised hand, pleased smile"
+    },
+    {
+      "name": "web-dance",
+      "group": "web-pourie",
+      "subject": "dancing with one arm up and one arm down and one foot lifted off the ground, joyful open smile"
+    },
+    {
+      "name": "web-shrug",
+      "group": "web-pourie",
+      "subject": "shrugging gently with both mitten hands raised palms up at shoulder height, a soft kind closed smile"
+    },
+    {
+      "name": "web-padlock",
+      "group": "web-pourie",
+      "subject": "hugging a large closed padlock in sky blue (#3DB2FF) to its chest with both arms, calm reassuring smile"
+    },
+    {
+      "name": "web-lifering",
+      "group": "web-pourie",
+      "subject": "holding a pink (#FF6FA3) and white striped life ring in one hand at its side and waving with the other hand, friendly smile"
+    },
+    {
+      "name": "web-jump",
+      "group": "web-pourie",
+      "subject": "jumping in the air with both arms up and both feet off the ground, eyes closed in joy, wide open smile, a few small confetti pieces in mint, lilac and pink around it"
+    },
+    {
+      "name": "web-peek",
+      "group": "web-pourie",
+      "subject": "standing and leaning forward a little with both mitten hands held together in front, looking straight ahead with wide curious eyes and a small open smile"
+    },
+    {
+      "name": "web-prop-mug",
+      "group": "web-props",
+      "subject": "a white coffee mug with a small curl of steam"
+    },
+    {
+      "name": "web-prop-receipt",
+      "group": "web-props",
+      "subject": "a long white paper receipt with a wavy torn bottom edge and one large mint green tick on it"
+    },
+    {
+      "name": "web-prop-water",
+      "group": "web-props",
+      "subject": "a tall glass of water with a green and white striped straw"
+    },
+    {
+      "name": "web-prop-clipboard",
+      "group": "web-props",
+      "subject": "a cream clipboard with a sky blue clip and three short indigo lines"
+    },
+    {
+      "name": "web-prop-phone",
+      "group": "web-props",
+      "subject": "a smartphone seen from the front with a plain cream screen and one large amber circle button near the bottom"
+    },
+    {
+      "name": "web-prop-trophy",
+      "group": "web-props",
+      "subject": "a small golden amber trophy cup on a deep amber base"
+    },
+    {
+      "name": "web-prop-shield",
+      "group": "web-props",
+      "subject": "a round mint green shield with a white tick"
+    },
+    {
+      "name": "web-prop-keys",
+      "group": "web-props",
+      "subject": "a car key and a house key on one ring"
+    },
+    {
+      "name": "web-prop-lime",
+      "group": "web-props",
+      "subject": "a lime wedge"
+    },
+    {
+      "name": "web-prop-car",
+      "group": "web-props",
+      "subject": "a small friendly car seen from the side in sky blue with a white light on the roof"
+    },
+    {
+      "name": "web-prop-door",
+      "group": "web-props",
+      "subject": "a front door in amber with a small round window, a round door knob and a doormat"
+    },
+    {
+      "name": "web-prop-lamp",
+      "group": "web-props",
+      "subject": "a street lamp on a tall indigo post with a round amber light"
+    }
   ]
 }

@@ -3,7 +3,8 @@ import Wordmark from "@/components/Wordmark.astro";
 import { site } from "@/lib/config";
 ---
 
-<footer class="border-t-2 border-line bg-canvas">
+<footer class="relative border-t-2 border-line bg-canvas">
+  <img src="/art/web-sit-480.webp" alt="" aria-hidden="true" width="200" height="200" loading="lazy" decoding="async" class="footer-sitter pointer-events-none absolute right-[8%] h-auto w-28 sm:w-36" />
   <div class="mx-auto flex max-w-[1400px] flex-col gap-8 px-5 py-12 sm:px-8 md:flex-row md:items-start md:justify-between">
     <div class="flex max-w-md flex-col gap-4">
       <Wordmark />
@@ -20,3 +21,11 @@ import { site } from "@/lib/config";
   </div>
   <div class="mx-auto max-w-[1400px] px-5 pb-10 text-sm text-muted sm:px-8">© 2026 Half Pour</div>
 </footer>
+
+<style>
+  /* The ledge in the drawing lines up with the footer's top border. */
+  .footer-sitter {
+    top: 0;
+    transform: translateY(-63%);
+  }
+</style>

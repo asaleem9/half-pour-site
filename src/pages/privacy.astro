@@ -4,10 +4,14 @@ import { site } from "@/lib/config";
 ---
 
 <Base title="Privacy" description="What Half Pour keeps, where it lives, and how to delete it." plain>
-  <article class="mx-auto max-w-[1100px] px-5 pb-24 pt-32 sm:px-8">
+  <article class="relative mx-auto max-w-[1100px] px-5 pb-24 pt-32 sm:px-8">
+    <picture>
+      <source type="image/avif" srcset="/art/web-padlock-480.avif" />
+      <img src="/art/web-padlock-480.webp" alt="Pourie hugging a padlock" width="240" height="240" decoding="async" class="mb-6 h-auto w-32 sm:absolute sm:right-8 sm:top-28 sm:mb-0 sm:w-56" />
+    </picture>
     <p class="font-display text-lg font-semibold text-brand-ink">Privacy</p>
     <h1 class="mt-2 text-display">Your nights are yours.</h1>
-    <p class="mt-6 max-w-[60ch] text-lede text-muted">
+    <p class="mt-6 max-w-[60ch] text-lede text-muted sm:max-w-[min(60ch,calc(100%_-_16rem))]">
       Half Pour keeps a record of your nights so it can show you your own patterns. It does not sell that record, show you ads, or follow you around
       the internet. This page says exactly what is kept and where.
     </p>

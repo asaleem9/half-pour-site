@@ -1133,15 +1133,6 @@
     ],
     "group": "web-pourie"
   },
-  "web-sign": {
-    "width": 676,
-    "height": 946,
-    "sizes": [
-      480,
-      960
-    ],
-    "group": "web-pourie"
-  },
   "web-sit": {
     "width": 780,
     "height": 870,
