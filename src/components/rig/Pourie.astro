@@ -1,0 +1,122 @@
+---
+/**
+ * Pourie as a vector rig, traced from the character sheet. Parts are grouped so behaviours/rig.ts can
+ * move them: legs and arms turn at the hip and shoulder, the face follows the pointer, the liquid's top
+ * edge is redrawn when it sloshes. The liquid is always exactly half way up the glass.
+ */
+interface Props {
+  /** Unique per page; clip paths are namespaced with it. */
+  id: string;
+  class?: string;
+  /** Decorative by default: the page's copy says what Pourie is doing. */
+  label?: string;
+}
+const { id, class: className = "", label } = Astro.props;
+
+const INK = "#1F1A3D";
+const AMBER = "#FFB02E";
+const GLASS = "#FFF6E5";
+const BODY = "M100 67 L146 528 Q150 570 192 570 L438 570 Q480 570 484 528 L530 67 A215 44 0 0 0 100 67 Z";
+const LIQUID = "M112 290 C150 276 188 276 226 288 C264 300 302 300 340 288 C378 276 416 276 454 288 C480 296 500 294 518 288 L484 500 Q315 528 146 500 Z";
+---
+
+<svg
+  viewBox="0 0 640 720"
+  class={`pourie-rig ${className}`}
+  data-rig={id}
+  role={label ? "img" : undefined}
+  aria-label={label}
+  aria-hidden={label ? undefined : "true"}
+  fill="none"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <defs>
+    <clipPath id={`${id}-glass`}><path d={BODY}></path></clipPath>
+    <clipPath id={`${id}-mouth`}><path d="M287 385 Q323 393 360 385 Q363 438 323 439 Q284 438 287 385 Z"></path></clipPath>
+  </defs>
+
+  <g data-rig-root>
+   <g data-rig-bob>
+    <!-- Legs sit behind the glass and turn at the hip. -->
+    <g data-rig-leg="l">
+      <path d="M256 556 L252 646" stroke={INK} stroke-width="56"></path>
+      <ellipse cx="226" cy="662" rx="60" ry="37" fill={INK}></ellipse>
+      <path d="M256 556 L252 646" stroke={AMBER} stroke-width="34"></path>
+      <ellipse cx="226" cy="662" rx="49" ry="26" fill={AMBER}></ellipse>
+    </g>
+    <g data-rig-leg="r">
+      <path d="M378 556 L382 646" stroke={INK} stroke-width="56"></path>
+      <ellipse cx="408" cy="662" rx="60" ry="37" fill={INK}></ellipse>
+      <path d="M378 556 L382 646" stroke={AMBER} stroke-width="34"></path>
+      <ellipse cx="408" cy="662" rx="49" ry="26" fill={AMBER}></ellipse>
+    </g>
+
+    <!-- Arms also start behind the glass. The right one is drawn raised, mid-wave. -->
+    <g data-rig-arm="l">
+      <path d="M136 398 Q86 418 66 484" stroke={INK} stroke-width="56"></path>
+      <circle cx="62" cy="492" r="41" fill={INK}></circle>
+      <path d="M136 398 Q86 418 66 484" stroke={AMBER} stroke-width="34"></path>
+      <circle cx="62" cy="492" r="30" fill={AMBER}></circle>
+    </g>
+    <g data-rig-arm="r">
+      <path d="M494 392 Q546 374 576 314" stroke={INK} stroke-width="56"></path>
+      <circle cx="582" cy="302" r="42" fill={INK}></circle>
+      <circle cx="553" cy="284" r="24" fill={INK}></circle>
+      <path d="M494 392 Q546 374 576 314" stroke={AMBER} stroke-width="34"></path>
+      <circle cx="582" cy="302" r="31" fill={AMBER}></circle>
+      <circle cx="553" cy="284" r="13" fill={AMBER}></circle>
+      <!-- Whatever Pourie is holding; rig.ts sets the picture and where it grips. -->
+      <image data-rig-prop href="" x="522" y="182" width="170" height="170" visibility="hidden" preserveAspectRatio="xMidYMid meet"></image>
+    </g>
+
+    <g data-rig-body>
+      <path d={BODY} fill={GLASS}></path>
+      <g clip-path={`url(#${id}-glass)`}>
+        <path d="M130 480 L500 480 L500 580 L130 580 Z" fill="#FFFFFF"></path>
+        <path data-rig-liquid d={LIQUID} fill={AMBER}></path>
+        <path d="M156 138 L161 250" stroke="#FFFFFF" stroke-width="22" opacity="0.92"></path>
+      </g>
+      <path d={BODY} stroke={INK} stroke-width="11"></path>
+      <ellipse cx="315" cy="67" rx="215" ry="44" fill={GLASS} stroke={INK} stroke-width="11"></ellipse>
+
+      <g data-rig-face>
+        <circle cx="203" cy="402" r="24" fill="#FF6FA3"></circle>
+        <circle cx="438" cy="402" r="24" fill="#FF6FA3"></circle>
+        <g data-rig-eyes>
+          <ellipse data-rig-eye="l" cx="247" cy="354" rx="22" ry="23" fill={INK}></ellipse>
+          <ellipse data-rig-eye="r" cx="393" cy="354" rx="22" ry="23" fill={INK}></ellipse>
+          <!-- Closed, happy eyes: shown instead of the dots for a blink or a grin. -->
+          <path data-rig-eye-closed d="M226 358 Q247 336 268 358 M372 358 Q393 336 414 358" stroke={INK} stroke-width="9" visibility="hidden"></path>
+        </g>
+        <g data-rig-mouth="open">
+          <path d="M287 385 Q323 393 360 385 Q363 438 323 439 Q284 438 287 385 Z" fill={INK}></path>
+          <ellipse cx="323" cy="433" rx="27" ry="17" fill="#FF6FA3" clip-path={`url(#${id}-mouth)`}></ellipse>
+          <path d="M287 385 Q323 393 360 385 Q363 438 323 439 Q284 438 287 385 Z" stroke={INK} stroke-width="8"></path>
+        </g>
+        <path data-rig-mouth="smile" d="M292 392 Q323 424 354 392" stroke={INK} stroke-width="9" visibility="hidden"></path>
+        <ellipse data-rig-mouth="oh" cx="323" cy="408" rx="13" ry="16" fill={INK} visibility="hidden"></ellipse>
+      </g>
+    </g>
+   </g>
+  </g>
+</svg>
+
+<style is:global>
+  .pourie-rig {
+    display: block;
+    overflow: visible;
+    height: auto;
+  }
+  /* A cream die-cut edge, like the sticker art, so the indigo outline reads on dark and amber grounds. */
+  .pourie-rig--edge {
+    filter: drop-shadow(7px 0 0 #fff6e5) drop-shadow(-7px 0 0 #fff6e5) drop-shadow(0 7px 0 #fff6e5) drop-shadow(0 -7px 0 #fff6e5);
+  }
+  .pourie-rig [data-rig-leg],
+  .pourie-rig [data-rig-arm],
+  .pourie-rig [data-rig-body],
+  .pourie-rig [data-rig-bob],
+  .pourie-rig [data-rig-root] {
+    will-change: transform;
+  }
+</style>

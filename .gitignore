@@ -31,3 +31,5 @@ AGENTS.md
 # macOS, and the "name 2.ext" copies iCloud Drive makes when a folder is rewritten
 .DS_Store
 * [0-9].*
+.vercel
+.env*
