@@ -6,7 +6,7 @@ export const site = {
   tagline: "Cut back, not out.",
   description:
     "Half Pour is an iPhone app for people who want to cut back on drinking, not quit. Plan the night, log each drink in one tap, and wake up to an honest, kind recap.",
-  url: (env.PUBLIC_SITE_URL as string | undefined) || "https://half-pour-site.vercel.app",
+  url: (env.PUBLIC_SITE_URL as string | undefined) || "https://halfpour.life",
   /** Empty until the app is on the App Store; the badge shows "coming soon" while it is. */
   appStoreUrl: (env.PUBLIC_APP_STORE_URL as string | undefined) || "",
   issuesUrl: "https://github.com/asaleem9/half-pour-site/issues",

@@ -2,7 +2,7 @@
 
 The marketing site for Half Pour, an iPhone app for people who want to cut back on drinking, not quit.
 
-Live at https://half-pour-site.vercel.app
+Live at https://halfpour.life
 
 ## Stack
 

@@ -5,7 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 const onVercel = Boolean(process.env.VERCEL);
 
 export default defineConfig({
-  site: process.env.PUBLIC_SITE_URL || "https://half-pour-site.vercel.app",
+  site: process.env.PUBLIC_SITE_URL || "https://halfpour.life",
   outDir: onVercel ? "./dist" : "./dist.nosync",
   compressHTML: true,
   devToolbar: { enabled: false },
